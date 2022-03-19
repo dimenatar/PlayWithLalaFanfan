@@ -25,7 +25,7 @@ public class StageController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Stage trigger")
+        if (other.CompareTag("Stage trigger"))
         {
             OnPlayerHitStageTrigger?.Invoke();
         }
