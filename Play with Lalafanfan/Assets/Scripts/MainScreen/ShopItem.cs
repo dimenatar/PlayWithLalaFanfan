@@ -6,18 +6,19 @@ using UnityEngine.UI;
 [RequireComponent (typeof(Button))]
 public class ShopItem : MonoBehaviour
 {
-    private UserMoney _money;
-    private IResource _recurce;
+    public delegate void ItemClick(IResource resource);
+    public event ItemClick OnItemClick;
 
-    public void Initialise(UserMoney money, IResource resource)
+    private IResource _resurce;
+
+    public void Initialise(IResource resource)
     {
-        _money = money;
-        _recurce = resource;
-        GetComponent<Button>().onClick.AddListener(PurchaseEvent);
+        _resurce = resource;
+        GetComponent<Button>().onClick.AddListener(Click);
     }
 
-    private void PurchaseEvent()
+    private void Click()
     {
-        _recurce.PurchaseItem(_money);
+        OnItemClick.Invoke(_resurce);
     }
 }

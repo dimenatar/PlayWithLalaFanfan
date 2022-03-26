@@ -7,5 +7,5 @@ using UnityEngine;
 [Serializable]
 public class UserBackpack 
 {
-    public Dictionary<FoodData, int> Food { get; set; }
+    public Dictionary<FoodData, int> Food { get; set; } = new Dictionary<FoodData, int>();
 }

@@ -5,34 +5,36 @@ using UnityEngine;
 
 public class Backpack : MonoBehaviour
 {
-    private Dictionary<FoodData, int> _food;
+    private UserBackpack _backpack;
 
-    public void Initialise(Dictionary <FoodData, int> food)
+    public UserBackpack Pack => _backpack;
+
+    public void Initialise(UserBackpack backpack)
     {
-        _food = food;
+        _backpack = backpack;
     }
 
     public void AddFood(FoodData foodData)
     {
-        if (_food.Keys.Contains(foodData))
+        if (_backpack.Food.Keys.Contains(foodData))
         {
-            _food[foodData]++;
+            _backpack.Food[foodData]++;
         }
         else
         {
-            _food.Add(foodData, 0);
+            _backpack.Food.Add(foodData, 0);
         }
     }
 
     public void ReduceFood(FoodData foodData)
     {
-        if (_food[foodData] > 0)
+        if (_backpack.Food[foodData] > 0)
         {
-            _food[foodData]--;
+            _backpack.Food[foodData]--;
         }
         else
         {
-            _food.Remove(foodData);
+            _backpack.Food.Remove(foodData);
         }
     }
 }

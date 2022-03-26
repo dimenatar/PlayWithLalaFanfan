@@ -12,7 +12,13 @@ public class UserDataCollector : MoneyCollector
     {
         SceneManager.sceneLoaded += LoadMoney;
         SceneManager.sceneLoaded += LoadFoodData;
+        SceneManager.sceneLoaded += LoadBackpack;
         SceneManager.sceneUnloaded += SaveResources;
+    }
+
+    private void LoadBackpack(Scene scene, LoadSceneMode mode)
+    {
+        _backpack.Initialise(_data.Backpack);
     }
 
     private void LoadFoodData(Scene scene, LoadSceneMode mode)
@@ -23,6 +29,7 @@ public class UserDataCollector : MoneyCollector
     protected override void SaveResources(Scene scene)
     {
         _data.Money = _money.MoneyAmount;
+        _data.Backpack = _backpack.Pack;
         UserSaveManager.SaveUserData(UserSaveManager.Path, _data);
     }
 }

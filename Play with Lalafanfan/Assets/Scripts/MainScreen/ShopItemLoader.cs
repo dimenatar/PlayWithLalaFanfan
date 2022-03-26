@@ -11,6 +11,7 @@ public class ShopItemLoader : MonoBehaviour
     [SerializeField] private GameObject _content;
     [SerializeField] private GameObject _itemPrefab;
     [SerializeField] private UserMoney _money;
+    [SerializeField] UserBackpack _backpack;
 
     private int _categoryIndex;
 
@@ -58,6 +59,13 @@ public class ShopItemLoader : MonoBehaviour
         {
             GameObject item = Instantiate(_itemPrefab, _content.transform);
             item.AddComponent<ShopItem>();
+            item.GetComponent<ShopItem>().Initialise(foodData);
+            item.GetComponent<ShopItem>().OnItemClick += PurchaseItem;
         }
+    }
+
+    private void PurchaseItem(IResource resource)
+    {
+        resource.PurchaseItem(_money);
     }
 }

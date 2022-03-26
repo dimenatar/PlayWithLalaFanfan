@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d837afb37a6fce4d88fdf34165b88d6, type: 3}
   m_Name: Food
   m_EditorClassIdentifier: 
+  _foodBuble:
+  - _name: Apple
+    _price: 2
+    _iconResourceName: Apple
+    _fedForce: 1
+    _foodType: 0
+  _categoryAmount: 0

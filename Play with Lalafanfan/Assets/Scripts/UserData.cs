@@ -9,11 +9,13 @@ public class UserData
     private int _money;
     private float _foodSatiety;
     private float _maxFoodSatiety = 10;
+    private UserBackpack _backpack = new UserBackpack();
 
     public float FoodSatiety => _foodSatiety;
     public float MaxFoodSatiety => _maxFoodSatiety;
     public int Money { get => _money; set => _money = value;}
     public int HighestRunnerPoints => _highestRunnerPoints;
+    public UserBackpack Backpack { get => _backpack; set => _backpack = value; }
 
     public void CollectData(int money)
     {
