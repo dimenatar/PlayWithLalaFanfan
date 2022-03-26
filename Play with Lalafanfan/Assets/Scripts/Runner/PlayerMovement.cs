@@ -35,7 +35,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Obstacle"))
         {
-            OnPlayerHitObstacle?.Invoke();
+            Vector3 toTarget = (other.gameObject.transform.position - transform.position).normalized;
+
+            if (Vector3.Dot(toTarget, gameObject.transform.forward) > 0)
+            {
+                OnPlayerHitObstacle?.Invoke();
+            }
         }
     }
 

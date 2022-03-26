@@ -7,9 +7,11 @@ public class UserData
 {
     private int _highestRunnerPoints;
     private int _money;
-    private int _highestStage;
+    private float _foodSatiety;
+    private float _maxFoodSatiety = 10;
 
-    public int HighestStage => _highestStage;
+    public float FoodSatiety => _foodSatiety;
+    public float MaxFoodSatiety => _maxFoodSatiety;
     public int Money { get => _money; set => _money = value;}
     public int HighestRunnerPoints => _highestRunnerPoints;
 
@@ -18,19 +20,28 @@ public class UserData
         Money = money;
     }
 
+    public void FeedUser(float amount)
+    {
+        if (_foodSatiety + amount <= _maxFoodSatiety)
+        {
+            _foodSatiety = _maxFoodSatiety;
+        }
+        else
+        {
+            _foodSatiety += amount;
+        }
+    }
+
+    public void SetMaxFoodSatiety(float maxFoodSatiety)
+    {
+        _maxFoodSatiety = maxFoodSatiety;
+    }
+
     public void UpdateRunnerRecord(int record)
     {
         if (record > _highestRunnerPoints)
         {
             _highestRunnerPoints = record;
-        }
-    }
-
-    public void UpdateHighestStage(int stage)
-    {
-        if (stage > _highestStage)
-        {
-            _highestStage = stage;
         }
     }
 }

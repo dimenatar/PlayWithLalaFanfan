@@ -11,8 +11,8 @@ public class Points : MonoBehaviour
     [SerializeField] private float _addPoints;
 
     private Vector3 _previousPosition = Vector3.zero;
+    private float _floatScore;
     private int _score;
-
     public int Score => _score;
 
     private void FixedUpdate()
@@ -20,8 +20,10 @@ public class Points : MonoBehaviour
         if (_previousPosition != Vector3.zero)
         {
             float magnitude = (transform.position - _previousPosition).z * _addPoints;
-            _score = (int)magnitude;
+            _floatScore += magnitude;
+            _score = (int)_floatScore;
             OnPointUpdated?.Invoke(_score);
         }
+        _previousPosition = transform.position;
     }
 }

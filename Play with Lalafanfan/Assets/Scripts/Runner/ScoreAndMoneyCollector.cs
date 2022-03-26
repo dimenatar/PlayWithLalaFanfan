@@ -35,5 +35,6 @@ public class ScoreAndMoneyCollector : MoneyCollector
         Debug.Log("Resources saved!");
         _data.Money = _money.MoneyAmount;
         _data.UpdateRunnerRecord(_points.Score);
+        UserSaveManager.SaveUserData(UserSaveManager.Path, _data);
     }
 }

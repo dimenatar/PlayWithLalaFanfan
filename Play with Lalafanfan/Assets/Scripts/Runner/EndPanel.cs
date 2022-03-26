@@ -30,16 +30,16 @@ public class EndPanel : MonoBehaviour
     private void EnablePanel()
     {
         _money.text = _userMoney.MoneyAmount.ToString();
-        if (_points.Score > _scoreAndMoneyCollector.HighestRunnerPoints)
+        if (_points.Score > _scoreAndMoneyCollector.HighestRunnerPoints) // если побил рекорд
         {
             _maxPoints.transform.parent.gameObject.SetActive(false);
-            _newRecord.gameObject.SetActive(false);
         }
         else
         {
+            _newRecord.gameObject.SetActive(false);
             _maxPoints.text = _scoreAndMoneyCollector.HighestRunnerPoints.ToString();
-            _currentPoints.text = _points.Score.ToString();
         }
+        _currentPoints.text = _points.Score.ToString();
         _panel.SetActive(true);
         Time.timeScale = 0;
     }

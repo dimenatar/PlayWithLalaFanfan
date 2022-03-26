@@ -2470,6 +2470,7 @@ GameObject:
   - component: {fileID: 828964531}
   - component: {fileID: 828964535}
   - component: {fileID: 828964536}
+  - component: {fileID: 828964537}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2606,6 +2607,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec65bbacc9dabc45aa4d413e7c1ee7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &828964537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828964527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7658660bce11a944918584d5e871ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _points: {fileID: 1462971523}
+  _pointsText: {fileID: 1263204572}
 --- !u!1 &839869972 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1106205639809762, guid: c53e680fdc8fae04d91b4ce9e548d2df,
@@ -3922,7 +3937,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1330311903}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 828964536}
+        m_TargetAssemblyTypeName: LevelLoader, Assembly-CSharp
+        m_MethodName: Reload
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1330311903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4471,7 +4498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a863f82cca2f36b4f806ed5313614c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _addPoints: 0
+  _addPoints: 0.5
 --- !u!1001 &1535731265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5306,7 +5333,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1785089481}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 828964536}
+        m_TargetAssemblyTypeName: LevelLoader, Assembly-CSharp
+        m_MethodName: LoadLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Menu
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1785089481
 MonoBehaviour:
   m_ObjectHideFlags: 0
