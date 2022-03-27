@@ -18,4 +18,8 @@ public class FoodData : ResourceData, IResource
     {
         userMoney.ReduceMoney(Price);
     }
+
+    [NonSerialized]
+    public static Dictionary<FoodType, string> FoodTypeTranslate = new Dictionary<FoodType, string> { { FoodType.Fruit, "Фрукты"},
+        { FoodType.Sweet, "Сладости"}, {FoodType.Vegetable, "Овощи"}, {FoodType.Fastfood, "Фастфуд"}};
 }

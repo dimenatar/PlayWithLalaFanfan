@@ -18,4 +18,49 @@ MonoBehaviour:
     _iconResourceName: Apple
     _fedForce: 1
     _foodType: 0
-  _categoryAmount: 0
+  - _name: Banana
+    _price: 2
+    _iconResourceName: Banana
+    _fedForce: 1
+    _foodType: 0
+  - _name: Kiwi
+    _price: 2
+    _iconResourceName: Kiwi
+    _fedForce: 1
+    _foodType: 0
+  - _name: Strawberry
+    _price: 2
+    _iconResourceName: Strawberry
+    _fedForce: 1
+    _foodType: 0
+  - _name: Orange
+    _price: 2
+    _iconResourceName: Orange
+    _fedForce: 1
+    _foodType: 0
+  - _name: Broccoli
+    _price: 2
+    _iconResourceName: Broccoli
+    _fedForce: 1
+    _foodType: 1
+  - _name: Carrot
+    _price: 2
+    _iconResourceName: Carrot
+    _fedForce: 1
+    _foodType: 1
+  - _name: Cucumber
+    _price: 2
+    _iconResourceName: Cucumber
+    _fedForce: 1
+    _foodType: 1
+  - _name: Tomato
+    _price: 2
+    _iconResourceName: Tomato
+    _fedForce: 1
+    _foodType: 1
+  - _name: Potato
+    _price: 2
+    _iconResourceName: Potato
+    _fedForce: 1
+    _foodType: 1
+  _categoryAmount: 4
