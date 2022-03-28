@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class ResourceData 
+public class ResourceData : IResource
 {
     [SerializeField] private string _name;
     [SerializeField] private int _price;
@@ -13,4 +13,11 @@ public class ResourceData
     public string Name => _name;
     public int Price => _price;
     public string IconResourceName => _iconResourceName;
+
+    public bool IsPurchasableOnFirstClick => throw new NotImplementedException();
+
+    public void PurchaseItem(UserMoney userMoney)
+    {
+        userMoney.ReduceMoney(Price);
+    }
 }

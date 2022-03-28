@@ -20,13 +20,13 @@ public class ShopSumbitPurchasePanel : MonoBehaviour
         _panel.SetActive(true);
     }
 
-    private void SubscribeSubmitButton()
-    {
-        _resource.PurchaseItem(_money);
-    }
-
     public void ClosePane()
     {
         _panel.SetActive(false);
+    }
+
+    private void SubscribeSubmitButton()
+    {
+        _resource.PurchaseItem(_money);
     }
 }

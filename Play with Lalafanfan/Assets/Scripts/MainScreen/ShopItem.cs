@@ -9,16 +9,16 @@ public class ShopItem : MonoBehaviour
     public delegate void ItemClick(IResource resource);
     public event ItemClick OnItemClick;
 
-    private IResource _resurce;
+    private IResource _resource;
 
     public void Initialise(IResource resource)
     {
-        _resurce = resource;
+        _resource = resource;
         GetComponent<Button>().onClick.AddListener(Click);
     }
 
     private void Click()
     {
-        OnItemClick.Invoke(_resurce);
+        OnItemClick.Invoke(_resource);
     }
 }

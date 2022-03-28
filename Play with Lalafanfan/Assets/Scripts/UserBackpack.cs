@@ -8,4 +8,6 @@ using UnityEngine;
 public class UserBackpack 
 {
     public Dictionary<FoodData, int> Food { get; set; } = new Dictionary<FoodData, int>();
+    public List<WallpaperData> Wallpapers { get; set; } = new List<WallpaperData>();
+    public List<AppereanceData> Appereances { get; set; } = new List<AppereanceData> { };
 }
