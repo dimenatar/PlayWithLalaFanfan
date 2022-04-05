@@ -10,6 +10,7 @@ public class MoneyView : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("awake");
         _userMoney.OnMoneyAmountChanged += SetMoneyAmountText;
     }
 

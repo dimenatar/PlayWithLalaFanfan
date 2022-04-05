@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class BackpackItemLoader : MonoBehaviour
 {
     [SerializeField] private Backpack _backpack;
-    [SerializeField] private Image _backGround;
+    [SerializeField] private Image _background;
     [SerializeField] private GameObject _prefab;
     [SerializeField] private GameObject _content;
     [SerializeField] private FoodSatiety _foodSatiety;
@@ -16,6 +16,16 @@ public class BackpackItemLoader : MonoBehaviour
     private Dictionary<int, string> _listOfMethodsToCall = new Dictionary<int, string> { { 0, nameof(SwitchToFood) },
                                                        {1, nameof(SwitchToAppearance) }, { 2, nameof(SwitchToWallpaper)} };
     private int _index;
+
+    private void Awake()
+    {
+        _backpack.OnFoodEmpty += RemoveFoodItem;
+    }
+
+    public void Initialise()
+    {
+        SwitchToFood();
+    }
 
     public void ChangeIndex(bool increase)
     {
@@ -56,18 +66,24 @@ public class BackpackItemLoader : MonoBehaviour
 
     private void SwitchToFood()
     {
+        ClearContent();
         var food = _backpack.Pack.Food;
         foreach (var item in food)
         {
             GameObject listItem = Instantiate(_prefab, _content.transform);
             listItem.GetComponent<Image>().sprite = Resources.Load<Sprite>(item.Key.IconResourceName);
+            listItem.transform.Find("Table").Find("Price").GetComponent<Text>().text = "x" + (_backpack.GetFoodItemAmount(item.Key)+1).ToString();
+            listItem.transform.Find("Table").Find("FeedForce").GetComponent<Text>().text = item.Key.FedForce.ToString();
             listItem.AddComponent<FoodBackpackItem>();
+            listItem.GetComponent<FoodBackpackItem>().Initialise(item.Key);
             listItem.GetComponent<FoodBackpackItem>().OnItemClick += SpentFood;
+            listItem.GetComponent<FoodBackpackItem>().OnItemClick += ReduceFoodAmountOnText;
         }
     }
 
     private void SwitchToAppearance()
     {
+        ClearContent();
         var appearance = _backpack.Pack.Appereances;
         foreach (var item in appearance)
         {
@@ -78,6 +94,7 @@ public class BackpackItemLoader : MonoBehaviour
 
     private void SwitchToWallpaper()
     {
+        ClearContent();
         var wallpaper = _backpack.Pack.Wallpapers;
         foreach (var item in wallpaper)
         {
@@ -98,12 +115,38 @@ public class BackpackItemLoader : MonoBehaviour
 
     private void ReplaceWallpaper(WallpaperData data)
     {
-        _backGround.sprite = Resources.Load<Sprite>(data.IconResourceName);
+        _background.sprite = Resources.Load<Sprite>(data.IconResourceName);
+    }
+
+    private void RemoveFoodItem(FoodData data)
+    {
+        Debug.Log("remove");
+        for (int i = 0; i < _content.transform.childCount; i++)
+        {
+            if (_content.transform.GetChild(i).GetComponent<FoodBackpackItem>().Data == data)
+            {
+                Destroy(_content.transform.GetChild(i).gameObject);
+            }
+        }
+    }
+
+    private void ReduceFoodAmountOnText(FoodData data)
+    {
+        Transform child;
+        for (int i = 0; i < _content.transform.childCount; i++)
+        {
+            child = _content.transform.GetChild(i);
+            if (child.GetComponent<FoodBackpackItem>().Data == data)
+            {
+                child.transform.Find("Table").Find("Price").GetComponent<Text>().text = "x" + _backpack.GetFoodItemAmount(data).ToString();
+                child.transform.Find("Table").Find("FeedForce").GetComponent<Text>().text = data.FedForce.ToString();
+            }
+        }
     }
 
     private void SpentFood(FoodData data)
     {
-        _foodSatiety.Feed(data.FedForce);
         _backpack.ReduceFood(data);
+        _foodSatiety.Feed(data.FedForce);
     }
 }

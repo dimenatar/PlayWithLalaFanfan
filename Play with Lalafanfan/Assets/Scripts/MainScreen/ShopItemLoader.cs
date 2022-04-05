@@ -121,9 +121,12 @@ public class ShopItemLoader : MonoBehaviour
         }
     }
 
+
+
     private void PurchaseItem(IResource resource)
     {
         resource.PurchaseItem(_money);
+        resource.AddToBackpack(_backpack);
     }
 
     private void SubscribeToPanel(IResource resource)

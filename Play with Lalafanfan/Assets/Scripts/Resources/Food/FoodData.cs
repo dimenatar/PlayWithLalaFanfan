@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class FoodData : ResourceData, IResource
+public class FoodData : ResourceData
 {
     [SerializeField] private float _fedForce;
     [SerializeField] private FoodType _foodType;
@@ -12,11 +12,9 @@ public class FoodData : ResourceData, IResource
     public float FedForce => _fedForce;
     public FoodType Type => _foodType;
 
-    public bool IsPurchasableOnFirstClick { get; set; }
-
-    public void PurchaseItem(UserMoney userMoney)
+    public override void AddToBackpack(Backpack backpack)
     {
-        userMoney.ReduceMoney(Price);
+        backpack.AddFood(this);
     }
 
     [NonSerialized]

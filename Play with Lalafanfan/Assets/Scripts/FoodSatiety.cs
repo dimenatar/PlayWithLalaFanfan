@@ -14,6 +14,9 @@ public class FoodSatiety : MonoBehaviour
     private float _foodSatiety;
     private float _maxFoodSatiety;
 
+    public float Satiety => _foodSatiety;
+    public float MaxFoodSatiety => _maxFoodSatiety;
+
     public void Initialise(float foodSatiety, float maxFoodSatiety)
     {
         _foodSatiety = foodSatiety;

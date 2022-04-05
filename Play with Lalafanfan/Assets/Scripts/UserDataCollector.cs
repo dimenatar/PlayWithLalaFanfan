@@ -14,6 +14,7 @@ public class UserDataCollector : MoneyCollector
         SceneManager.sceneLoaded += LoadFoodData;
         SceneManager.sceneLoaded += LoadBackpack;
         SceneManager.sceneUnloaded += SaveResources;
+        Application.quitting += SaveResources;
     }
 
     private void LoadBackpack(Scene scene, LoadSceneMode mode)
@@ -28,8 +29,16 @@ public class UserDataCollector : MoneyCollector
 
     protected override void SaveResources(Scene scene)
     {
+        SaveResources();
+    }
+
+    protected override void SaveResources()
+    {
         _data.Money = _money.MoneyAmount;
+        Debug.Log(_money.MoneyAmount);
         _data.Backpack = _backpack.Pack;
+        _data.FoodSatiety = _userSatiety.Satiety;
         UserSaveManager.SaveUserData(UserSaveManager.Path, _data);
+        Debug.Log("data saved");
     }
 }

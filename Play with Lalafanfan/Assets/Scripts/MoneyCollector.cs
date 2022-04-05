@@ -21,15 +21,22 @@ public class MoneyCollector : MonoBehaviour
         _data = UserSaveManager.LoadUserData(UserSaveManager.Path);
         if (_data == null)
         {
+            Debug.Log(_data);
             _data = new UserData();
             UserSaveManager.SaveUserData(UserSaveManager.Path, _data);
         }
+        Debug.Log(_data.Money + "load");
         _money.SetMoneyAmount(_data.Money);
+    }
+
+    protected virtual void SaveResources()
+    {
+        _data.Money = _money.MoneyAmount;
+        UserSaveManager.SaveUserData(UserSaveManager.Path, _data);
     }
 
     protected virtual void SaveResources(Scene scene)
     {
-        _data.Money = _money.MoneyAmount;
-        UserSaveManager.SaveUserData(UserSaveManager.Path, _data);
+        this.SaveResources();
     }
 }

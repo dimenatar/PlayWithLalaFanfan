@@ -16,6 +16,11 @@ public class ResourceData : IResource
 
     public bool IsPurchasableOnFirstClick => throw new NotImplementedException();
 
+    public virtual void AddToBackpack(Backpack backpack)
+    {
+
+    }
+
     public void PurchaseItem(UserMoney userMoney)
     {
         userMoney.ReduceMoney(Price);

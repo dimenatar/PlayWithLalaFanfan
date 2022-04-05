@@ -25,16 +25,15 @@ public class ScoreAndMoneyCollector : MoneyCollector
         _highestRunnerPoints = _data.HighestRunnerPoints;
     }
 
-    private void SaveResources()
+    protected override void SaveResources()
     {
-        SaveResources(new Scene());
+        _data.Money = _money.MoneyAmount;
+        _data.UpdateRunnerRecord(_points.Score);
+        UserSaveManager.SaveUserData(UserSaveManager.Path, _data);
     }
 
     protected override void SaveResources(Scene scene)
     {
-        Debug.Log("Resources saved!");
-        _data.Money = _money.MoneyAmount;
-        _data.UpdateRunnerRecord(_points.Score);
-        UserSaveManager.SaveUserData(UserSaveManager.Path, _data);
+        SaveResources();
     }
 }

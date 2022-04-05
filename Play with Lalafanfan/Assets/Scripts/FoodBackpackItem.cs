@@ -11,6 +11,8 @@ public class FoodBackpackItem : MonoBehaviour
 
     private FoodData _data;
 
+    public FoodData Data => _data;
+
     public void Initialise(FoodData data)
     {
         _data = data;
