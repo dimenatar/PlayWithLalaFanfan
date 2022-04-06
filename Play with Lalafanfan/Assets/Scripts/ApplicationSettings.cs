@@ -8,4 +8,8 @@ public class ApplicationSettings : MonoBehaviour
     {
         Application.targetFrameRate = 60;
     }
+    private void Update()
+    {
+        //Debug.Log(1.0f / Time.deltaTime);
+    }
 }

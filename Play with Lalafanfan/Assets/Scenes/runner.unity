@@ -2529,7 +2529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _activeManager: {fileID: 828964535}
-  _points: {fileID: 1462971523}
+  _points: {fileID: 0}
   _scoreAndMoneyCollector: {fileID: 828964534}
   _playerMovement: {fileID: 1462971518}
   _userMoney: {fileID: 828964530}
@@ -4495,7 +4495,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1462971515}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a863f82cca2f36b4f806ed5313614c1d, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c16b04b29671574eab5c7e581070c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _addPoints: 0.5

@@ -4,34 +4,35 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    [SerializeField] private float _startJumpForce;
+    [SerializeField] protected float _startJumpForce;
 
     public delegate void PlatformHitsDeadZone(GameObject platform);
     public event PlatformHitsDeadZone OnHitsDeadZone;
 
-    private float _jumpMultiplicator = 1;
+    protected float _jumpMultiplicator = 1;
 
-    public void AddJumpMultiplicator(float force)
+    public void CalculateJumpMultiplicator()
     {
-        _jumpMultiplicator = force;
+        _jumpMultiplicator += _jumpMultiplicator /= 15;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.relativeVelocity.y < 0)
+        if (collision.collider.GetComponent<DuckJump>())
         {
-            if (collision.collider.GetComponent<DuckJump>())
-            {
-                collision.collider.GetComponent<DuckJump>().Jump(_startJumpForce * _jumpMultiplicator);
-            }
+            DuckHitsPlatform(collision);
+        }
+        else if (collision.collider.name == "DeadZone")
+        {
+            OnHitsDeadZone?.Invoke(gameObject);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void DuckHitsPlatform(Collision2D collision)
     {
-        if (other.GetComponent<DuckJump>())
+        if (collision.relativeVelocity.y < 0)
         {
-            other.GetComponent<DuckJump>().Jump(_startJumpForce * _jumpMultiplicator);
+            collision.collider.GetComponent<DuckJump>().Jump(_startJumpForce + _jumpMultiplicator);
         }
     }
 }

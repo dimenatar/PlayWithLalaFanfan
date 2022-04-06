@@ -6,12 +6,21 @@ public class CoinCollector : MonoBehaviour
 {
     [SerializeField] UserMoney _userMoney;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.CompareTag("Coin"))
+        if (collision.collider.CompareTag("Coin"))
         {
             _userMoney.IncrementMoney();
-            Destroy(other.gameObject);
+            Destroy(collision.collider.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Coin"))
+        {
+            _userMoney.IncrementMoney();
+            Destroy(collision.gameObject);
         }
     }
 }

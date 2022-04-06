@@ -20,13 +20,13 @@ public class UserMoney : MonoBehaviour
     public void SetMoneyAmount(int amount)
     {
         _moneyAmount = amount;
-        OnMoneyAmountChanged.Invoke(_moneyAmount);
+        OnMoneyAmountChanged?.Invoke(_moneyAmount);
     }
 
     public void IncrementMoney()
     {
         _moneyAmount++;
-        OnMoneyAmountChanged.Invoke(_moneyAmount);
+        OnMoneyAmountChanged?.Invoke(_moneyAmount);
     }
 
     public bool ReduceMoney(int amount)
@@ -38,7 +38,7 @@ public class UserMoney : MonoBehaviour
         else
         {
             _moneyAmount -= amount;
-            OnMoneyAmountChanged.Invoke(_moneyAmount);
+            OnMoneyAmountChanged?.Invoke(_moneyAmount);
             return true;
         }
     }
@@ -46,6 +46,6 @@ public class UserMoney : MonoBehaviour
     public void AddMoney(int amount)
     {
         _moneyAmount += amount;
-        OnMoneyAmountChanged.Invoke(_moneyAmount);
+        OnMoneyAmountChanged?.Invoke(_moneyAmount);
     }
 }

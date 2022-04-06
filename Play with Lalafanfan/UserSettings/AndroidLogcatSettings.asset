@@ -1,13 +1,62 @@
 {
-    "m_SelectedDeviceId": "",
+    "m_SelectedDeviceId": "hi7p4xwoso5hto85",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "hi7p4xwoso5hto85",
+        "name": "com.DefaultCompany.PlaywithLalafanfan",
+        "processId": 30893,
         "exited": false
     },
     "m_SelectedPriority": 0,
-    "m_KnownPackagesForSerialization": [],
+    "m_KnownPackagesForSerialization": [
+        {
+            "deviceId": "hi7p4xwoso5hto85",
+            "name": "com.DefaultCompany.PlaywithLalafanfan",
+            "processId": 13615,
+            "exited": false
+        },
+        {
+            "deviceId": "hi7p4xwoso5hto85",
+            "name": "com.DefaultCompany.PlaywithLalafanfan",
+            "processId": 23735,
+            "exited": false
+        },
+        {
+            "deviceId": "hi7p4xwoso5hto85",
+            "name": "com.DefaultCompany.PlaywithLalafanfan",
+            "processId": 24651,
+            "exited": false
+        },
+        {
+            "deviceId": "hi7p4xwoso5hto85",
+            "name": "com.DefaultCompany.PlaywithLalafanfan",
+            "processId": 25485,
+            "exited": false
+        },
+        {
+            "deviceId": "hi7p4xwoso5hto85",
+            "name": "com.DefaultCompany.PlaywithLalafanfan",
+            "processId": 26687,
+            "exited": false
+        },
+        {
+            "deviceId": "hi7p4xwoso5hto85",
+            "name": "com.DefaultCompany.PlaywithLalafanfan",
+            "processId": 27944,
+            "exited": false
+        },
+        {
+            "deviceId": "hi7p4xwoso5hto85",
+            "name": "com.DefaultCompany.PlaywithLalafanfan",
+            "processId": 29383,
+            "exited": false
+        },
+        {
+            "deviceId": "hi7p4xwoso5hto85",
+            "name": "com.DefaultCompany.PlaywithLalafanfan",
+            "processId": 30893,
+            "exited": false
+        }
+    ],
     "m_Tags": {
         "m_Entries": [
             {
@@ -41,9 +90,20 @@
         ]
     },
     "m_MemoryViewerState": {
-        "MemoryWindowHeight": 0.0,
-        "MemoryWindowWidth": 0.0,
-        "MemoryTypeEnabled": [],
+        "MemoryWindowHeight": 300.0,
+        "MemoryWindowWidth": 170.0,
+        "MemoryTypeEnabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
         "MemoryGroup": 2,
         "Behavior": 0
     },
