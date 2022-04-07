@@ -1,4 +1,0 @@
-#Wed Apr 06 16:54:00 MSK 2022
-base.0=C\:\\Users\\dimenatar\\Desktop\\Work\\PlayWithLalafanfan\\PlayWithLalaFanfan\\Play with Lalafanfan\\Temp\\gradleOut\\launcher\\build\\intermediates\\dex\\release\\out\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

@@ -12,14 +12,16 @@ public class PlatformManager : MonoBehaviour
     [SerializeField] private GameObject _megaPlatformPrefab;
     [SerializeField] private int _startPlatformAmount;
     [SerializeField] private float _startYOffset;
-    [SerializeField] private float _xOffset;
-
+    
+    private float _xRightPoint;
+    private float _xLeftPoint;
     private float _currentYOffset;
     private float _YPos;
 
     private void Start()
     {
         _currentYOffset = _startYOffset;
+        CalculateBorders();
         InstantiatePlatforms();
     }
 
@@ -32,15 +34,15 @@ public class PlatformManager : MonoBehaviour
             GameObject platform;
             if (ShouldSpawnBroken())
             {
-                platform = Instantiate(_brokenPlatformPrefab, new Vector2(Random.Range(-_xOffset / 2, _xOffset / 2), _YPos), Quaternion.identity);
+                platform = Instantiate(_brokenPlatformPrefab, new Vector2(Random.Range(_xLeftPoint, _xRightPoint), _YPos), Quaternion.identity);
             }
             else if (ShouldSpawnMega())
             {
-                platform = Instantiate(_megaPlatformPrefab, new Vector2(Random.Range(-_xOffset / 2, _xOffset / 2), _YPos), Quaternion.identity);
+                platform = Instantiate(_megaPlatformPrefab, new Vector2(Random.Range(_xLeftPoint, _xRightPoint), _YPos), Quaternion.identity);
             }
             else
             {
-                platform = Instantiate(_firstPlatform, new Vector2(Random.Range(-_xOffset/2, _xOffset/2), _YPos), Quaternion.identity);
+                platform = Instantiate(_firstPlatform, new Vector2(Random.Range(_xLeftPoint, _xRightPoint), _YPos), Quaternion.identity);
             }
             platform.GetComponent<Platform>().OnHitsDeadZone += RelocatePlatform;
             platform.GetComponent<Platform>().OnHitsDeadZone += AddCoinToPlatform;
@@ -58,14 +60,14 @@ public class PlatformManager : MonoBehaviour
         if (ShouldSpawnBroken())
         {
             Destroy(platform);
-            platform = Instantiate(_brokenPlatformPrefab, new Vector2(Random.Range(-_xOffset / 2, _xOffset / 2), _YPos), Quaternion.identity);
+            platform = Instantiate(_brokenPlatformPrefab, new Vector2(Random.Range(_xLeftPoint, _xRightPoint), _YPos), Quaternion.identity);
         }
         else if (ShouldSpawnMega())
         {
             Destroy(platform);
-            platform = Instantiate(_megaPlatformPrefab, new Vector2(Random.Range(-_xOffset / 2, _xOffset / 2), _YPos), Quaternion.identity);
+            platform = Instantiate(_megaPlatformPrefab, new Vector2(Random.Range(_xLeftPoint, _xRightPoint), _YPos), Quaternion.identity);
         }
-        platform.transform.position = new Vector2(Random.Range(-_xOffset / 2, _xOffset / 2), _YPos);
+        platform.transform.position = new Vector2(Random.Range(_xLeftPoint, _xRightPoint), _YPos);
         platform.GetComponent<Platform>().CalculateJumpMultiplicator();
         _YPos += _currentYOffset + Random.Range(-_currentYOffset / 10, _currentYOffset / 10);
     }
@@ -83,5 +85,15 @@ public class PlatformManager : MonoBehaviour
                 coin.transform.localPosition += new Vector3(0, 10, 0);
             }
         }
+    }
+
+    private void CalculateBorders()
+    {
+        var depth = _firstPlatform.transform.position.y - Camera.main.transform.position.y;
+        var middleRight = new Vector3(Screen.width, Screen.height/2, depth);
+        var middleLeft = new Vector3(0, Screen.height / 2, depth);
+
+        _xRightPoint = Camera.main.ScreenToWorldPoint(middleRight).x - _firstPlatform.transform.localScale.x;
+        _xLeftPoint = Camera.main.ScreenToWorldPoint(middleLeft).x + _firstPlatform.transform.localScale.x;
     }
 }
