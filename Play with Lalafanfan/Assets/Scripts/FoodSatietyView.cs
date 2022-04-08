@@ -5,22 +5,16 @@ using UnityEngine.UI;
 
 public class FoodSatietyView : MonoBehaviour
 {
-    [SerializeField] private Slider _foodSlider;
+    [SerializeField] private Image _iconSlider;
     [SerializeField] private FoodSatiety _satiety;
 
     private void Awake()
     {
         _satiety.OnFoodSatietyUpdated += SetSliderValue;
-        _satiety.OnMaxFoodSatietyUpdated += SetSliderMaxValue;
     }
 
     public void SetSliderValue(float value)
     {
-        _foodSlider.value = value;
+        _iconSlider.fillAmount = value / _satiety.MaxFoodSatiety;
     }
-
-    public void SetSliderMaxValue(float value)
-    {
-        _foodSlider.maxValue = value;
-    }    
 }

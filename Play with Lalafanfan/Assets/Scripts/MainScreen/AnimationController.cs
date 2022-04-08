@@ -10,70 +10,67 @@ public class AnimationController : MonoBehaviour
 
     private Stages _currentStage = Stages.Main;
 
-    public void GamesClick()
+    public void MainClick()
     {
-        _currentStage = Stages.Games;
-        _animator.SetTrigger("MainToGames");
+        SetTrigger(_currentStage, Stages.Main);
+        _currentStage = Stages.Main;
     }
 
     public void BackpackClick()
     {
+        SetTrigger(_currentStage, Stages.Backpack);
         _currentStage = Stages.Backpack;
-        _backpackItemLoader.Initialise();
-        _animator.SetTrigger("MainToBackpack");
     }
 
     public void RoutmapClick()
     {
+        SetTrigger(_currentStage, Stages.Routemap);
         _currentStage = Stages.Routemap;
-        _animator.SetTrigger("MainToRoute");
     }
 
     public void ShopFoodClick()
     {
+        SetTrigger(_currentStage, Stages.ShopFood);
         _currentStage = Stages.ShopFood;
-        _shopItemLoader.SwitchToFood();
-        _animator.SetTrigger("RouteToBundle");
     }
 
-    public void ReturnClick()
+    private void SetTrigger(Stages from, Stages to)
     {
-        Debug.Log(_currentStage);
-        switch (_currentStage)
+        Debug.Log(from.ToString() + " " + to.ToString());
+        if (from == to) return;
+        if (to == Stages.Backpack)
         {
-            case Stages.Routemap:
-                {
-                    _currentStage = Stages.Main;
-                    _animator.SetTrigger("RouteToMain");
-                    break;
-                }
-            case Stages.Games:
-                {
-                    _currentStage = Stages.Main;
-                    _animator.SetTrigger("GamesToMain");
-                    break;
-                }
-            case Stages.Backpack:
-                {
-                    _currentStage = Stages.Main;
-                    _animator.SetTrigger("BackpackToMain");
-                    break;
-                }
+            _backpackItemLoader.Initialise();
+        }
+        if (from == Stages.ShopFood || from == Stages.ShopWallpapers || from == Stages.ShopAppearance)
+        {
+            _animator.SetTrigger("HideBundle");
+            _animator.SetTrigger("Show" + to.ToString());
+        }
+        else if (to == Stages.ShopFood || to == Stages.ShopWallpapers || to == Stages.ShopAppearance)
+        {
+            LoadBundle(to);
+            _animator.SetTrigger("HideRoutemap");
+            _animator.SetTrigger("ShowBundle");
+        }
+        else
+        {
+            _animator.SetTrigger("Hide" + from.ToString());
+            _animator.SetTrigger("Show" + to.ToString());
+        }
+    }
+
+    private void LoadBundle(Stages to)
+    {
+        switch (to)
+        {
             case Stages.ShopFood:
                 {
-                    _currentStage = Stages.Routemap;
-                    _animator.SetTrigger("BundleToRoute");
-                    break;
-                }
-            case Stages.ShopAppearance:
-                {
-                    break;
-                }
-            case Stages.ShopWallpapers:
-                {
+                    _shopItemLoader.SwitchToFood();
                     break;
                 }
         }
+
     }
 }
 
