@@ -15,6 +15,16 @@ public class CoinCollector : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.name);
+        if (collision.collider.CompareTag("Coin"))
+        {
+            _userMoney.IncrementMoney();
+            Destroy(collision.collider.gameObject);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Coin"))

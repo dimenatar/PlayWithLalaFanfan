@@ -76,7 +76,7 @@ public class PlatformManager : MonoBehaviour
     {
         if (!platform.transform.Find("Coin"))
         {
-            GameObject coin = _coinSpawner.SpawnCoinWithChange(platform.transform.position);
+            GameObject coin = _coinSpawner.SpawnCoinWithChance(platform.transform.position);
             if (coin)
             {
                 coin.name = "Coin";

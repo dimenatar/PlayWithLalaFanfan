@@ -16,6 +16,11 @@ public class DuckHealth : MonoBehaviour
     public int Health => _health;
     public int StartHealth => _startHealth;
 
+    private void Start()
+    {
+        _health = _startHealth;
+    }
+
     public void DecrementHealth()
     {
         _health--;

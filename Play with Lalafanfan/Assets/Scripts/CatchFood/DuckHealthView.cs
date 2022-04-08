@@ -17,6 +17,7 @@ public class DuckHealthView : MonoBehaviour
 
     private void ReduceHealth(int health)
     {
+        Debug.Log(_hearts.Count + " " + health);
         for (int i = 0; i < _hearts.Count - health; i++)
         {
             if (_hearts[i].enabled)
