@@ -71,9 +71,9 @@ public class BackpackItemLoader : MonoBehaviour
         foreach (var item in food)
         {
             GameObject listItem = Instantiate(_prefab, _content.transform);
-            listItem.GetComponent<Image>().sprite = Resources.Load<Sprite>(item.Key.IconResourceName);
-            listItem.transform.Find("Table").Find("Price").GetComponent<Text>().text = "x" + (_backpack.GetFoodItemAmount(item.Key)+1).ToString();
-            listItem.transform.Find("Table").Find("FeedForce").GetComponent<Text>().text = item.Key.FedForce.ToString();
+            listItem.transform.Find("Food").GetComponent<Image>().sprite = Resources.Load<Sprite>(item.Key.IconResourceName);
+            listItem.transform.Find("Amount").Find("Value").GetComponent<Text>().text = GetFoodAmount(item.Key);
+            //listItem.transform.Find("Table").Find("FeedForce").GetComponent<Text>().text = item.Key.FedForce.ToString();
             listItem.AddComponent<FoodBackpackItem>();
             listItem.GetComponent<FoodBackpackItem>().Initialise(item.Key);
             listItem.GetComponent<FoodBackpackItem>().OnItemClick += SpentFood;
@@ -138,8 +138,7 @@ public class BackpackItemLoader : MonoBehaviour
             child = _content.transform.GetChild(i);
             if (child.GetComponent<FoodBackpackItem>().Data == data)
             {
-                child.transform.Find("Table").Find("Price").GetComponent<Text>().text = "x" + _backpack.GetFoodItemAmount(data).ToString();
-                child.transform.Find("Table").Find("FeedForce").GetComponent<Text>().text = data.FedForce.ToString();
+                child.transform.Find("Amount").Find("Value").GetComponent<Text>().text = GetFoodAmount(data);
             }
         }
     }
@@ -148,5 +147,11 @@ public class BackpackItemLoader : MonoBehaviour
     {
         _backpack.ReduceFood(data);
         _foodSatiety.Feed(data.FedForce);
+    }
+
+    private string GetFoodAmount(FoodData data)
+    {
+        int foodAmount = _backpack.GetFoodItemAmount(data) + 1;
+        return foodAmount >= 100 ? "99+" : foodAmount.ToString();
     }
 }
