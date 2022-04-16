@@ -16,7 +16,8 @@ public class ShopItemLoader : MonoBehaviour
     [SerializeField] private ShopSumbitPurchasePanel _sumbitPurchasePanel;
     [SerializeField] private Backpack _backpack;
     [SerializeField] private Text _category;
-
+    [SerializeField] private ShopBasketLoader _shopBasketLoader;
+    
     private int _categoryAmount;
     private int _categoryIndex;
 
@@ -90,27 +91,27 @@ public class ShopItemLoader : MonoBehaviour
             item.GetComponent<Image>().sprite = Resources.Load<Sprite>(foodData.IconResourceName);
             item.transform.Find("Table").Find("Price").GetComponent<Text>().text = foodData.Price.ToString();
             item.transform.Find("Table").Find("FeedForce").GetComponent<Text>().text = foodData.FedForce.ToString();
-            item.AddComponent<ShopItem>();
-            item.GetComponent<ShopItem>().Initialise(foodData);
-            item.GetComponent<ShopItem>().OnItemClick += PurchaseItem;
+            item.AddComponent<ShopFoodItem>();
+            item.GetComponent<ShopFoodItem>().Initialise(foodData);
+            item.GetComponent<ShopFoodItem>().OnItemClick += PurchaseItem;
         }
     }
 
     private void LoadAppearanseBundle()
     {
-        AppearanceType requiredType = (AppearanceType)_categoryIndex;
-        _category.text = AppereanceData.AppearanceTypeTranslate[requiredType];
-        List<AppereanceData> currentAppearanceData = _appearanceBundle.Appearances.Where(appearance => appearance.Type == requiredType).ToList();
-        foreach (AppereanceData appearanceData in currentAppearanceData)
-        {
-            GameObject item = Instantiate(_itemPrefab, _content.transform);
-            item.GetComponent<Image>().sprite = Resources.Load<Sprite>(appearanceData.IconResourceName);
-            item.transform.Find("Table").Find("Price").GetComponent<Text>().text = appearanceData.Price.ToString();
-            item.transform.Find("Table").Find("FeedForce").gameObject.SetActive(false);
-            item.AddComponent<ShopItem>();
-            item.GetComponent<ShopItem>().Initialise(appearanceData);
-            item.GetComponent<ShopItem>().OnItemClick += SubscribeToPanel;
-        }
+        //AppearanceType requiredType = (AppearanceType)_categoryIndex;
+        //_category.text = AppereanceData.AppearanceTypeTranslate[requiredType];
+        //List<AppereanceData> currentAppearanceData = _appearanceBundle.Appearances.Where(appearance => appearance.Type == requiredType).ToList();
+        //foreach (AppereanceData appearanceData in currentAppearanceData)
+        //{
+        //    GameObject item = Instantiate(_itemPrefab, _content.transform);
+        //    item.GetComponent<Image>().sprite = Resources.Load<Sprite>(appearanceData.IconResourceName);
+        //    item.transform.Find("Table").Find("Price").GetComponent<Text>().text = appearanceData.Price.ToString();
+        //    item.transform.Find("Table").Find("FeedForce").gameObject.SetActive(false);
+        //    item.AddComponent<ShopFoodItem>();
+        //    item.GetComponent<ShopFoodItem>().Initialise(appearanceData);
+            //item.GetComponent<ShopItem>().OnItemClick += SubscribeToPanel;
+        //}
     }
 
     private void ClearContent()
@@ -121,16 +122,15 @@ public class ShopItemLoader : MonoBehaviour
         }
     }
 
-
-
-    private void PurchaseItem(IResource resource)
+    private void PurchaseItem(FoodData resource, Vector3 position)
     {
         resource.PurchaseItem(_money);
         resource.AddToBackpack(_backpack);
+        _shopBasketLoader.AddItemToBasket(resource, position);
     }
 
-    private void SubscribeToPanel(IResource resource)
-    {
-        _sumbitPurchasePanel.ShowPanel(resource);
-    }
+    //private void SubscribeToPanel(IResource resource)
+    //{
+    //    _sumbitPurchasePanel.ShowPanel(resource);
+    //}
 }

@@ -25,7 +25,7 @@ public class BackpackDuckFeeder : MonoBehaviour
         {
             foreach (var go in raycastResults)
             {
-                Debug.Log(go.gameObject.name);
+                //Debug.Log(go.gameObject.name);
             }
         }
     }

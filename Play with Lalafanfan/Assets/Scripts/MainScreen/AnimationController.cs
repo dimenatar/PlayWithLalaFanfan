@@ -7,71 +7,57 @@ public class AnimationController : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private ShopItemLoader _shopItemLoader;
     [SerializeField] private BackpackItemLoader _backpackItemLoader;
+    [SerializeField] private ShopAnimations _shopAnimations;
+    [SerializeField] private MainAnimations _mainAnimations;
+    [SerializeField] private RoutemapAnimations _routemapAnimations;
 
     private Stages _currentStage = Stages.Main;
 
     public void MainClick()
     {
-        SetTrigger(_currentStage, Stages.Main);
+        Animate(_currentStage, Stages.Main);
         _currentStage = Stages.Main;
     }
 
     public void BackpackClick()
     {
-        SetTrigger(_currentStage, Stages.Backpack);
+        Animate(_currentStage, Stages.Backpack);
         _currentStage = Stages.Backpack;
     }
 
     public void RoutmapClick()
     {
-        SetTrigger(_currentStage, Stages.Routemap);
+        Animate(_currentStage, Stages.Routemap);
         _currentStage = Stages.Routemap;
+        //_shopAnimations.ShowFoodShop();
     }
 
     public void ShopFoodClick()
     {
-        SetTrigger(_currentStage, Stages.ShopFood);
-        _currentStage = Stages.ShopFood;
+        Animate(_currentStage, Stages.FoodShop);
+        _currentStage = Stages.FoodShop;
     }
 
-    private void SetTrigger(Stages from, Stages to)
+    private void Animate(Stages from, Stages to)
     {
-        Debug.Log(from.ToString() + " " + to.ToString());
-        if (from == to) return;
-        if (to == Stages.Backpack)
-        {
-            _backpackItemLoader.Initialise();
-        }
-        if (from == Stages.ShopFood || from == Stages.ShopWallpapers || from == Stages.ShopAppearance)
-        {
-            _animator.SetTrigger("HideBundle");
-            _animator.SetTrigger("Show" + to.ToString());
-        }
-        else if (to == Stages.ShopFood || to == Stages.ShopWallpapers || to == Stages.ShopAppearance)
-        {
-            LoadBundle(to);
-            _animator.SetTrigger("HideRoutemap");
-            _animator.SetTrigger("ShowBundle");
-        }
-        else
-        {
-            _animator.SetTrigger("Hide" + from.ToString());
-            _animator.SetTrigger("Show" + to.ToString());
-        }
+        Invoke("Show" + to.ToString(), 0);
+        Invoke("Hide" + from.ToString(), 0);
     }
 
     private void LoadBundle(Stages to)
     {
-        switch (to)
-        {
-            case Stages.ShopFood:
-                {
-                    _shopItemLoader.SwitchToFood();
-                    break;
-                }
-        }
 
     }
+
+    private void ShowMain() => _mainAnimations.ShowMain();
+    private void ShowRoutemap() => _routemapAnimations.ShowRoutemap();
+    private void ShowFoodShop()
+    {
+        _shopAnimations.ShowFoodShop();
+    }
+
+    private void HideMain() => _mainAnimations.HideMain();
+    private void HideRoutemap() => _routemapAnimations.HideRoutemap();
 }
 
 public enum Stages
@@ -80,7 +66,7 @@ public enum Stages
     Routemap,
     Games,
     Backpack,
-    ShopFood,
+    FoodShop,
     ShopAppearance,
     ShopWallpapers
 }
