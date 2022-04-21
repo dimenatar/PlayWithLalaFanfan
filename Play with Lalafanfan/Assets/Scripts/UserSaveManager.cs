@@ -15,7 +15,7 @@ public static class UserSaveManager
         }
         catch (System.Exception)
         {
-            return null;
+            return new UserData();
         }
         finally
         {

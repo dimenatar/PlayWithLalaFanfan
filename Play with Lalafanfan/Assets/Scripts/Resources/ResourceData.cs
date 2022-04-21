@@ -10,11 +10,16 @@ public class ResourceData : IResource
     [SerializeField] private int _price;
     [SerializeField] private string _iconResourceName;
 
+    public ResourceData(string name, int price, string iconResourceName)
+    {
+        _name = name;
+        _price = price;
+        _iconResourceName = iconResourceName;
+    }
+
     public string Name => _name;
     public int Price => _price;
     public string IconResourceName => _iconResourceName;
-
-    public bool IsPurchasableOnFirstClick => throw new NotImplementedException();
 
     public virtual void AddToBackpack(Backpack backpack)
     {

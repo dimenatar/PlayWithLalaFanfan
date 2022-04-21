@@ -1,10 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 [Serializable]
 public class UserData
 {
+    public delegate void UserDataInitialised(UserData userData);
+    
+    public event UserDataInitialised OnUserDataInitialised;
+
     private int _money;
     private float _foodSatiety;
     private float _maxFoodSatiety = 10;
@@ -19,8 +24,11 @@ public class UserData
 
     public UserData()
     {
+        Debug.Log(Backpack);
         Backpack = new UserBackpack();
+        Debug.Log(Backpack);
         _points = new PointsRecord();
+        OnUserDataInitialised?.Invoke(this);
     }
 
     public void CollectData(int money)

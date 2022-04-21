@@ -6,10 +6,5 @@ using UnityEngine;
 [Serializable]
 public class WallpaperData : ResourceData, IResource
 {
-    public bool IsPurchasableOnFirstClick => throw new System.NotImplementedException();
-
-    public void PurchaseItem(UserMoney userMoney)
-    {
-        userMoney.ReduceMoney(Price);
-    }
+    public WallpaperData(string name, int price, string iconResourceName) : base(name, price, iconResourceName) { }
 }

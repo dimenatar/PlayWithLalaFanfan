@@ -21,14 +21,8 @@ public class BackgroundImageAnimation : MonoBehaviour
         AnimateCenterToRight();
     }
 
-    private void Start()
-    {
-
-    }
-
     private void SendPictureFullLeft()
     {
-        //Debug.Log(_rectTransform.rect.width);
         _rectTransform.anchoredPosition = new Vector2(-_rectTransform.sizeDelta.x / 2, 0);
     }
 
@@ -41,7 +35,6 @@ public class BackgroundImageAnimation : MonoBehaviour
             _isResized = true;
         }
         SendPictureFullLeft();
-        Debug.Log("animate" + _rectTransform.sizeDelta.x);
         _rectTransform.DOAnchorPos(new Vector2(_rectTransform.sizeDelta.x / 2, _rectTransform.anchoredPosition.y), _animationDurationIn);
     }
 
@@ -53,6 +46,5 @@ public class BackgroundImageAnimation : MonoBehaviour
     private void Resize()
     {
         _rectTransform.sizeDelta = new Vector2(Screen.width, Screen.height);
-        Debug.Log("resize" + _rectTransform.sizeDelta.x / 2);
     }
 }

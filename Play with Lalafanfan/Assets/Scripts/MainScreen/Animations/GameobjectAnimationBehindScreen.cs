@@ -14,8 +14,7 @@ public class GameobjectAnimationBehindScreen : MonoBehaviour
 
     private void Start()
     {
-
-        //SendObjectsFromScreen();
+        InitialisePositions();
     }
 
     /// <summary>
@@ -44,18 +43,23 @@ public class GameobjectAnimationBehindScreen : MonoBehaviour
 
     public void AnimateIn()
     {
-        if (!_isInitialisedPositions)
-        {
-            _defaultPositions = new List<Vector3>();
-            _objectsToAnimate.ForEach(obj => _defaultPositions.Add(obj.transform.position));
-            _isInitialisedPositions = true;
-        }
+        InitialisePositions();
         SendObjectsFromScreen();
         Debug.Log("animate in");
         for (int i = 0; i < _objectsToAnimate.Count; i++)
         {
             _objectsToAnimate[i].SetActive(true);
             _objectsToAnimate[i].transform.DOMove(_defaultPositions[i], _animationDurationIn);
+        }
+    }
+
+    private void InitialisePositions()
+    {
+        if (!_isInitialisedPositions)
+        {
+            _isInitialisedPositions = true;
+            _defaultPositions = new List<Vector3>();
+            _objectsToAnimate.ForEach(obj => _defaultPositions.Add(obj.transform.position));
         }
     }
 }

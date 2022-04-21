@@ -38,8 +38,15 @@ public class AnimationController : MonoBehaviour
         _currentStage = Stages.FoodShop;
     }
 
+    public void WallpapersShopClick()
+    {
+        Animate(_currentStage, Stages.WallpapersShop);
+        _currentStage = Stages.WallpapersShop;
+    }
+
     private void Animate(Stages from, Stages to)
     {
+        if (from == to) return;
         Invoke("Show" + to.ToString(), 0);
         Invoke("Hide" + from.ToString(), 0);
     }
@@ -51,6 +58,7 @@ public class AnimationController : MonoBehaviour
 
     private void ShowMain() => _mainAnimations.ShowMain();
     private void ShowRoutemap() => _routemapAnimations.ShowRoutemap();
+    private void ShowWallpapersShop() => _shopAnimations.ShowWallpapersShop();
     private void ShowFoodShop()
     {
         _shopAnimations.ShowFoodShop();
@@ -58,6 +66,8 @@ public class AnimationController : MonoBehaviour
 
     private void HideMain() => _mainAnimations.HideMain();
     private void HideRoutemap() => _routemapAnimations.HideRoutemap();
+    private void HideFoodShop() => _shopAnimations.HideFoodShop();
+    private void HideWallpapersShop() => _shopAnimations.HideWallpaperShop();
 }
 
 public enum Stages
@@ -67,6 +77,6 @@ public enum Stages
     Games,
     Backpack,
     FoodShop,
-    ShopAppearance,
-    ShopWallpapers
+    AppearanceShop,
+    WallpapersShop
 }

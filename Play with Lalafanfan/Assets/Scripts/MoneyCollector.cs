@@ -10,12 +10,6 @@ public class MoneyCollector : MonoBehaviour
 
     protected UserData _data = null;
 
-    //private void Awake()
-    //{
-    //    SceneManager.sceneLoaded += LoadMoney;
-    //    SceneManager.sceneUnloaded += SaveResources;
-    //}
-
     protected void LoadMoney(Scene scene, LoadSceneMode mode)
     {
         _data = UserSaveManager.LoadUserData(UserSaveManager.Path);
@@ -25,7 +19,6 @@ public class MoneyCollector : MonoBehaviour
             _data = new UserData();
             UserSaveManager.SaveUserData(UserSaveManager.Path, _data);
         }
-        Debug.Log(_data.Money + "load");
         _money.SetMoneyAmount(_data.Money);
     }
 
