@@ -17,7 +17,7 @@ public class ShopItemLoader : MonoBehaviour
     [SerializeField] private Backpack _backpack;
     [SerializeField] private Text _category;
     [SerializeField] private ShopBasketLoader _shopBasketLoader;
-    
+
     private int _categoryAmount;
     private int _categoryIndex;
 

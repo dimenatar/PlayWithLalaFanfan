@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ShopBasketLoader : MonoBehaviour
 {
+    [SerializeField] private GameObject _basket;
     [SerializeField] private int _maxCapacity;
     [SerializeField] private Transform _leftPoint;
     [SerializeField] private Transform _rightPoint;
@@ -17,7 +18,7 @@ public class ShopBasketLoader : MonoBehaviour
     private int _rowAmount;
     private int _currentRow;
 
-    private Dictionary<float, bool> _basket = new Dictionary<float, bool>();
+    private Dictionary<float, bool> _basketItems = new Dictionary<float, bool>();
 
     private void Start()
     {
@@ -27,10 +28,22 @@ public class ShopBasketLoader : MonoBehaviour
     public void AddItemToBasket(FoodData data, Vector3 startPosition)
     {
         GameObject item = Instantiate(_itemPrefab, startPosition, Quaternion.identity);
+        item.transform.SetParent(_basket.transform);
         item.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(data.IconResourceName);
         item.AddComponent<ShopBasketItem>();
         item.GetComponent<ShopBasketItem>().Initialise(GetItemPositionInBasket(), _itemFlyHeight, _itemAmount < _maxCapacity);
         _itemAmount++;
+    }
+
+    public void ClearBasket()
+    {
+        for (int i = 0; i < _basket.transform.childCount; i++)
+        {
+            Destroy(_basket.transform.GetChild(i).gameObject);
+        }
+        _itemAmount = 0;
+        _currentRow = 0;
+        _rowAmount = 0;
     }
 
     private void InitialiseBasketDictionary()
@@ -39,7 +52,7 @@ public class ShopBasketLoader : MonoBehaviour
         float leftPointX = _leftPoint.position.x;
         for (int i = 0; i < _rowCapacity; i++)
         {
-            _basket.Add(leftPointX + singleCellCapacity * i, false);
+            _basketItems.Add(leftPointX + singleCellCapacity * i, false);
         }
     }
 
@@ -50,27 +63,26 @@ public class ShopBasketLoader : MonoBehaviour
             if (_rowAmount >= _rowCapacity)
             {
                 _rowAmount = 0;
-                foreach (var item in _basket.ToList())
+                foreach (var item in _basketItems.ToList())
                 {
-                    _basket[item.Key] = false;
+                    _basketItems[item.Key] = false;
                 }
                 _currentRow++;
             }
             _rowAmount++;
-            var pair = _basket.ElementAt(Random.Range(0, _basket.Count));
-            //Debug.Log(_rowAmount + "/" + _rowCapacity);
+            var pair = _basketItems.ElementAt(Random.Range(0, _basketItems.Count));
             while (pair.Value == true)
             {
-                pair = _basket.ElementAt(Random.Range(0, _basket.Count));
+                pair = _basketItems.ElementAt(Random.Range(0, _basketItems.Count));
             }
-            _basket[pair.Key] = true;
+            _basketItems[pair.Key] = true;
             float xPos = pair.Key;
             float yPos = _leftPoint.position.y + _currentRow * _yOffset;
             return new Vector3(xPos, yPos, _leftPoint.position.z);
         }
         else
         {
-            var pair = _basket.ElementAt(Random.Range(0, _basket.Count));
+            var pair = _basketItems.ElementAt(Random.Range(0, _basketItems.Count));
             float yPos = _leftPoint.position.y + _yOffset;
             return new Vector3(pair.Key, yPos, _leftPoint.position.z);
         }

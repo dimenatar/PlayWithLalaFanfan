@@ -1,82 +1,149 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AnimationController : MonoBehaviour
 {
-    [SerializeField] private Animator _animator;
-    [SerializeField] private ShopItemLoader _shopItemLoader;
-    [SerializeField] private BackpackItemLoader _backpackItemLoader;
     [SerializeField] private ShopAnimations _shopAnimations;
+    [SerializeField] private ShopFoodAnimations _shopFoodAnimatations;
+    [SerializeField] private WallpaperShopAnimations _wallpaperShopAnimatations;
     [SerializeField] private MainAnimations _mainAnimations;
     [SerializeField] private RoutemapAnimations _routemapAnimations;
+    [SerializeField] private BackpackAnimations _backpackAnimations;
+    [SerializeField] private BathroomAnimations _bathroomAnimations;
 
-    private Stages _currentStage = Stages.Main;
+    public event Action OnAnimationCompleted;
+
+    //private Stages _currentStage = Stages.Main;
+    private bool _isReadyToAnimate = true;
+    private IPhaseAnimations currentStage;
+
+    private void Start()
+    {
+        currentStage = _mainAnimations;
+    }
 
     public void MainClick()
     {
-        Animate(_currentStage, Stages.Main);
-        _currentStage = Stages.Main;
+        //Animate(_currentStage, Stages.Main);
+        Animate(currentStage, _mainAnimations);
     }
 
     public void BackpackClick()
     {
-        Animate(_currentStage, Stages.Backpack);
-        _currentStage = Stages.Backpack;
+        Animate(currentStage, _backpackAnimations);
     }
 
     public void RoutmapClick()
     {
-        Animate(_currentStage, Stages.Routemap);
-        _currentStage = Stages.Routemap;
-        //_shopAnimations.ShowFoodShop();
+        Animate(currentStage, _routemapAnimations);
     }
 
     public void ShopFoodClick()
     {
-        Animate(_currentStage, Stages.FoodShop);
-        _currentStage = Stages.FoodShop;
+        Animate(currentStage, _shopFoodAnimatations);
     }
 
     public void WallpapersShopClick()
     {
-        Animate(_currentStage, Stages.WallpapersShop);
-        _currentStage = Stages.WallpapersShop;
+        Animate(currentStage, _wallpaperShopAnimatations);
     }
 
-    private void Animate(Stages from, Stages to)
+    //private void Animate(Stages from, Stages to)
+    private void Animate(IPhaseAnimations from, IPhaseAnimations to)
     {
-        if (from == to) return;
-        Invoke("Show" + to.ToString(), 0);
-        Invoke("Hide" + from.ToString(), 0);
+        if (_isReadyToAnimate)
+        {
+            _isReadyToAnimate = false;
+            if (from is IMainRoomAnimations && from is IDuckAnimations && to is IMainRoomAnimations && to is IDuckAnimations)
+            {
+                (from as IMainRoomAnimations).LimitedAnimateOut();
+                (to as IMainRoomAnimations).LimitedAnimateIn();
+            }
+            //else if (!(to is IMainRoomAnimations) && !(to is IDuckAnimations) && from is IMainRoomAnimations && from is IDuckAnimations)
+            //{
+            //    from.AnimateOut();
+            //    to.AnimateIn();
+            //}
+            //else if ()
+            //{
+
+            //}
+            else
+            {
+                from.AnimateOut();
+                to.AnimateIn();
+            }
+            currentStage = to;
+            Invoke(nameof(EnableAnimations), 0.5f);
+        }
+        //
+        // if from
+        //
+        //if (_isReadyToAnimate)
+        //{
+            //if (from == to) return;
+            //_isReadyToAnimate = false;
+            //if (from == Stages.Main && to == Stages.Backpack)
+            //{
+            //    _mainAnimations.LimitedHideMain();
+            //    _backpackAnimations.LimitedAnimateIn();
+            //}
+            //else if (from == Stages.Backpack && to == Stages.Main)
+            //{
+            //    _backpackAnimations.LimitedHideBackpack();
+            //    _mainAnimations.LimitedShowMain();
+            //}
+            //else if (from == Stages.WallpapersShop && to == Stages.Main)
+            //{
+            //    _shopAnimations.LimitedHideWallpaperShop();
+            //    _mainAnimations.LimitedShowMainWithDuck();
+            //}
+            //else if (from == Stages.WallpapersShop && to == Stages.Backpack)
+            //{
+            //    _shopAnimations.LimitedHideWallpaperShop();
+            //    _backpackAnimations.LimitedAnimateInWithDuck();
+            //}
+            //else if (from == Stages.WallpapersShop && to == Stages.Bathroom)
+            //{
+            //    _shopAnimations.HideWallpaperShop();
+            //    _bathroomAnimations.LimitedAnimateIn();
+            //}
+            //else if (from ==  Stages.Main && to == Stages.Bathroom)
+            //{
+            //    _mainAnimations.LimitedHideMainWithRoom();
+            //    _bathroomAnimations.LimitedAnimateIn();
+            //}
+            //else if (from == Stages.Backpack && to == Stages.Bathroom)
+            //{
+            //    _backpackAnimations.LimitedHideBackpackWithRoom();
+            //    _bathroomAnimations.LimitedAnimateIn();
+            //}
+            //else
+            //{
+            //    Invoke("Show" + to.ToString(), 0);
+            //    Invoke("Hide" + from.ToString(), 0);
+            //}
+            //_currentStage = to;
+           // 
+        //}
     }
 
-    private void LoadBundle(Stages to)
+    private void EnableAnimations()
     {
-
+        _isReadyToAnimate = true;
     }
-
-    private void ShowMain() => _mainAnimations.ShowMain();
-    private void ShowRoutemap() => _routemapAnimations.ShowRoutemap();
-    private void ShowWallpapersShop() => _shopAnimations.ShowWallpapersShop();
-    private void ShowFoodShop()
-    {
-        _shopAnimations.ShowFoodShop();
-    }
-
-    private void HideMain() => _mainAnimations.HideMain();
-    private void HideRoutemap() => _routemapAnimations.HideRoutemap();
-    private void HideFoodShop() => _shopAnimations.HideFoodShop();
-    private void HideWallpapersShop() => _shopAnimations.HideWallpaperShop();
 }
 
-public enum Stages
-{
-    Main,
-    Routemap,
-    Games,
-    Backpack,
-    FoodShop,
-    AppearanceShop,
-    WallpapersShop
-}
+//public enum Stages
+//{
+//    Main,
+//    Routemap,
+//    Games,
+//    Backpack,
+//    FoodShop,
+//    AppearanceShop,
+//    WallpapersShop,
+//    Bathroom
+//}

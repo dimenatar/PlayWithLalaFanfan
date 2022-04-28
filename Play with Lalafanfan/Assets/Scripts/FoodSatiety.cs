@@ -25,10 +25,26 @@ public class FoodSatiety : MonoBehaviour
         OnMaxFoodSatietyUpdated?.Invoke(_maxFoodSatiety);
     }
 
-    public void Feed(float foodAmount)
+    public bool Feed(float foodAmount)
     {
-        _foodSatiety += foodAmount;
-        OnFoodSatietyUpdated?.Invoke(_foodSatiety);
+        if (_foodSatiety != _maxFoodSatiety)
+        {
+            if (_foodSatiety + foodAmount >= _maxFoodSatiety)
+            {
+                _foodSatiety = _maxFoodSatiety;
+            }
+            else
+            {
+                _foodSatiety += foodAmount;
+            }
+            OnFoodSatietyUpdated?.Invoke(_foodSatiety);
+            return true;
+        }
+        else
+        {
+            //OnFoodSatietyUpdated?.Invoke(_foodSatiety);
+            return false;
+        }
     }
 
     public void ReduceFoodSatiety(float amount)

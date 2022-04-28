@@ -45,13 +45,14 @@ public class WallpaperShopManager : MonoBehaviour
             case WallpaperButtonState.CanSet:
                 {
                     _wallpapers.UpdateCurrentWallpaper(_wallpaperBundle.Wallpapers[_index]);
+                    _wallpaperButtonState = WallpaperButtonState.Setted;
                     break;
                 }
         }
         SetButtonAppearance(_wallpaperBundle.Wallpapers[_index]);
     }
 
-    public void ShopWallpaperShow()
+    public void ShopWallpaperShow() 
     {
         _index = 0;
         ShowWallpaperInfo(_wallpaperBundle.Wallpapers[_index]);
