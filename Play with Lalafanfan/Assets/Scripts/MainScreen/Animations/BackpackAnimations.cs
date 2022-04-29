@@ -11,13 +11,19 @@ public class BackpackAnimations : MonoBehaviour, IMainRoomAnimations, IDuckAnima
     [SerializeField] private BackpackItemLoader _itemLoader;
     [SerializeField] private GameobjectAnimationBehindScreen _mainRoom;
 
-    public void LimitedAnimateInWithDuck()
+    public void AnimateIn()
     {
-        LimitedAnimateIn();
+        (this as IDuckAnimations).LimitedAnimateIn();
         _duck.AnimateIn();
     }
 
-    public void LimitedAnimateIn()
+    public void AnimateOut()
+    {
+        (this as IDuckAnimations).LimitedAnimateOut();
+        _duck.AnimateOut();
+    }
+
+    void IMainRoomAnimations.LimitedAnimateIn()
     {
         _table.gameObject.SetActive(true);
         _foodItems.gameObject.SetActive(true);
@@ -27,22 +33,21 @@ public class BackpackAnimations : MonoBehaviour, IMainRoomAnimations, IDuckAnima
         _foodItems.AnimateIn();
     }
 
-    public void AnimateIn()
-    {
-        _mainRoom.AnimateIn();
-        LimitedAnimateInWithDuck();
-    }
-
-    public void AnimateOut()
-    {
-        _mainRoom.AnimateOut();
-        LimitedAnimateOut();
-    }
-
-    public void LimitedAnimateOut()
+    void IMainRoomAnimations.LimitedAnimateOut()
     {
         _table.AnimateOut();
         _foodItems.AnimateOut();
     }
 
+    void IDuckAnimations.LimitedAnimateIn()
+    {
+        (this as IMainRoomAnimations).LimitedAnimateIn();
+        _mainRoom.AnimateIn();
+    }
+
+    void IDuckAnimations.LimitedAnimateOut()
+    {
+        (this as IMainRoomAnimations).LimitedAnimateOut();
+        _mainRoom.AnimateOut();
+    }
 }

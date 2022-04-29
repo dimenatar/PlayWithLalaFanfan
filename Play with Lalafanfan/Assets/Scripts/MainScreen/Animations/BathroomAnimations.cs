@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BathroomAnimations : MonoBehaviour
+public class BathroomAnimations : MonoBehaviour, IDuckAnimations
 {
-    [SerializeField] private BackgroundImageAnimation _sponge;
+    [SerializeField] private UIAnimations _sponge;
     [SerializeField] private GameobjectAnimationBehindScreen _bathroom;
     [SerializeField] private GameobjectAnimationBehindScreen _duck;
 

@@ -9,10 +9,6 @@ public class MainAnimations : MonoBehaviour, IMainRoomAnimations, IDuckAnimation
     [SerializeField] private GameobjectAnimationBehindScreen _duckAnimation;
     [SerializeField] private GamesAnimations _gamesAnimations;
 
-    private bool _isShowed;
-
-    public bool IsShowed => _isShowed;
-
     public void AnimateIn()
     {
         _gamesAnimations.gameObject.SetActive(true);
@@ -30,42 +26,26 @@ public class MainAnimations : MonoBehaviour, IMainRoomAnimations, IDuckAnimation
         _duckAnimation.AnimateOut();
     }
 
-    public void LimitedHideMainWithRoom()
-    {
-        LimitedHideMain();
-        _mainRoomAnimation.AnimateOut();
-    }
-
-
-    public void LimitedHideMain()
-    {
-        _gamesAnimations.AnimateOutWithDisable();
-    }
-
-    public void LimitedShowMain()
-    {
-        _gamesAnimations.gameObject.SetActive(true); 
-    }
-
-    public void LimitedShowMainWithDuck()
-    {
-        LimitedShowMain();
-        _duckAnimation.AnimateIn();
-    }
-
-    public void LimitedHideMainWithDuck()
-    {
-        LimitedHideMain();
-        _duckAnimation.AnimateOut();
-    }
-
-    public void LimitedAnimateIn()
+    void IMainRoomAnimations.LimitedAnimateIn()
     {
         _gamesAnimations.gameObject.SetActive(true);
-    }
+    }    
 
-    public void LimitedAnimateOut()
+    void IMainRoomAnimations.LimitedAnimateOut()
     {
         _gamesAnimations.AnimateOutWithDisable();
+    }
+
+    void IDuckAnimations.LimitedAnimateIn()
+    {
+        _gamesAnimations.gameObject.SetActive(true);
+        _mainRoomAnimation.gameObject.SetActive(true);
+        _mainRoomAnimation.AnimateIn();
+    }
+
+    void IDuckAnimations.LimitedAnimateOut()
+    {
+        _gamesAnimations.AnimateOutWithDisable();
+        _mainRoomAnimation.AnimateOut();
     }
 }

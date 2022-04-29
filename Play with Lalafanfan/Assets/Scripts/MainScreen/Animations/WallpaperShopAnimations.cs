@@ -7,6 +7,7 @@ public class WallpaperShopAnimations : MonoBehaviour, IMainRoomAnimations, IDuck
     [SerializeField] private BackgroundImageAnimation _wallpapersShopImage;
     [SerializeField] private GameobjectAnimationBehindScreen _roomAnimations;
     [SerializeField] private WallpaperShopManager _wallpaperShopManager;
+    [SerializeField] private GameobjectAnimationBehindScreen _duck;
 
     public void AnimateIn()
     {
@@ -20,13 +21,19 @@ public class WallpaperShopAnimations : MonoBehaviour, IMainRoomAnimations, IDuck
 
     public void AnimateOut()
     {
-        _wallpapersShopImage.AnimateOut();
-        _roomAnimations.AnimateOut();
+        (this as IDuckAnimations).AnimateOut();
+        _duck.AnimateOut();
     }
 
     public void LimitedAnimateIn() { throw new System.NotImplementedException("Not supported action!"); }
 
-    public void LimitedAnimateOut()
+    void IDuckAnimations.LimitedAnimateOut()
+    {
+        _wallpapersShopImage.AnimateOut();
+        _roomAnimations.AnimateOut();
+    }
+
+    void IMainRoomAnimations.LimitedAnimateOut()
     {
         _wallpapersShopImage.AnimateOut();
     }

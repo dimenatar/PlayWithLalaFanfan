@@ -16,6 +16,7 @@ public class GameobjectAnimationBehindScreen : MonoBehaviour
     private bool _isInitialisedPositions = false;
    // private bool _isReadyToAnimate = true;
 
+    
     private void Start()
     {
         InitialisePositions();
@@ -26,12 +27,14 @@ public class GameobjectAnimationBehindScreen : MonoBehaviour
     /// </summary>
     public void SendObjectsFromScreen()
     {
-        Debug.Log("send of screen");
+        Debug.Log($"{gameObject.name} send of screen");
         foreach (var item in _objectsToAnimate)
         {
-            float leftScreenPoint = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, item.transform.position.y - Camera.main.transform.position.y)).x;
+            float leftScreenPoint = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).x;
+            Debug.Log($"{leftScreenPoint} changedb pos");
             float width = item.GetComponent<BoxCollider>().bounds.size.x;
             item.transform.position = new Vector3(leftScreenPoint - width, item.transform.position.y, item.transform.position.z);
+
         }
     }
 
@@ -63,6 +66,7 @@ public class GameobjectAnimationBehindScreen : MonoBehaviour
             _isInitialisedPositions = true;
             _defaultPositions = new List<Vector3>();
             _objectsToAnimate.ForEach(obj => _defaultPositions.Add(obj.transform.position));
+            Debug.Log($"{gameObject.name} initialised! {_defaultPositions[0]}");
         }
     }
 
