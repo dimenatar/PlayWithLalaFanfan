@@ -7,6 +7,7 @@ public class FoodSatietyView : MonoBehaviour
 {
     [SerializeField] private Image _iconSlider;
     [SerializeField] private FoodSatiety _satiety;
+    [SerializeField] private Gradient _gradient;
 
     private void Awake()
     {
@@ -16,5 +17,6 @@ public class FoodSatietyView : MonoBehaviour
     public void SetSliderValue(float value)
     {
         _iconSlider.fillAmount = value / _satiety.MaxFoodSatiety;
+        _iconSlider.color = _gradient.Evaluate(_iconSlider.fillAmount);
     }
 }

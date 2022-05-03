@@ -2529,7 +2529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _activeManager: {fileID: 828964535}
-  _points: {fileID: 0}
+  _points: {fileID: 1462971523}
   _scoreAndMoneyCollector: {fileID: 828964534}
   _playerMovement: {fileID: 1462971518}
   _userMoney: {fileID: 828964530}

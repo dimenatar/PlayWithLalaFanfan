@@ -5,11 +5,12 @@ using UnityEngine.EventSystems;
 
 public class Sponge : MonoBehaviour
 {
-    [SerializeField] private float _addEnergyForce;
     [SerializeField] private Vector3 _defaultPosition;
+    [SerializeField] private EnergyController _energyController;
     [SerializeField] private WashingBubbleSpawner _washingBubbleSpawner;
     [SerializeField] private GameObject _duck;
     [SerializeField] private Camera _main;
+    [SerializeField] private float _washingDelay;
 
     private bool _isCalculcatedDepth;
     private bool _isMovingSponge;
@@ -45,17 +46,14 @@ public class Sponge : MonoBehaviour
             }
             if (IsHoweringObject(_duck))
             {
-                Vector3 position = Input.mousePosition;
-                if (!_isCalculcatedDepth)
-                {
-                    _depth = _main.transform.localPosition.y - _duck.transform.position.y;
-                    _isCalculcatedDepth = true;
-                }
-                position.z = _depth;
-
-                Vector3 worldPosition = _main.ScreenToWorldPoint(position);
+                Vector3 worldPosition = GetBubbleWorldPosition();
+                StartCoroutine(nameof(WashDuck));
                 Debug.Log(worldPosition);
                 _washingBubbleSpawner.SpawnBubble(worldPosition);
+            }
+            else
+            {
+                StopCoroutine(nameof(WashDuck));
             }
         }
         else
@@ -63,8 +61,23 @@ public class Sponge : MonoBehaviour
             if (_isMovingSponge)
             {
                 ReturnSpongeToDefaultPosition();
+                StopCoroutine(nameof(WashDuck));
             }
         }
+    }
+
+    private Vector3 GetBubbleWorldPosition()
+    {
+        Vector3 position = Input.mousePosition;
+        if (!_isCalculcatedDepth)
+        {
+            _depth = _main.transform.localPosition.y - _duck.transform.position.y;
+            _isCalculcatedDepth = true;
+        }
+        position.z = _depth;
+
+        Vector3 worldPosition = _main.ScreenToWorldPoint(position);
+        return worldPosition;
     }
 
     private void ReturnSpongeToDefaultPosition()
@@ -106,5 +119,14 @@ public class Sponge : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private IEnumerator WashDuck()
+    {
+        while (true)
+        {
+            _energyController.WashDuck();
+            yield return new WaitForSeconds(_washingDelay);
+        }
     }
 }

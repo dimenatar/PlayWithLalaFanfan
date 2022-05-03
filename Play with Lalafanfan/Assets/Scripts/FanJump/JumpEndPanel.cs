@@ -30,6 +30,7 @@ public class JumpEndPanel : MonoBehaviour
     {
         _money.text = _userMoney.MoneyAmount.ToString();
         Debug.Log(_points.Score);
+        Debug.Log(_scoreAndMoneyCollector);
         Debug.Log(_scoreAndMoneyCollector.Points);
         Debug.Log(_scoreAndMoneyCollector.Points.HighestJumpPoints);
         if (_points.Score > _scoreAndMoneyCollector.Points.HighestJumpPoints) // если побил рекорд

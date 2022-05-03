@@ -8,6 +8,7 @@ public class FoodCatchMoneyAndPointsCollector : PointsAndMoneyCollector
     {
         _data.Money = _money.MoneyAmount;
         _data.Points.UpdateCatchFoodRecord(_points.Score);
-        UserSaveManager.SaveUserData(UserSaveManager.Path, _data);
+        //UserSaveManager.RewriteUserData(UserSaveManager.Path, _data);
+        UserSaveManager.SaveUserData(_data);
     }
 }

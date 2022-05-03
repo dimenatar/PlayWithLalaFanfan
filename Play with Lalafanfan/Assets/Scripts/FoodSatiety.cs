@@ -21,6 +21,7 @@ public class FoodSatiety : MonoBehaviour
     {
         _foodSatiety = foodSatiety;
         _maxFoodSatiety = maxFoodSatiety;
+
         OnFoodSatietyUpdated?.Invoke(_foodSatiety);
         OnMaxFoodSatietyUpdated?.Invoke(_maxFoodSatiety);
     }
