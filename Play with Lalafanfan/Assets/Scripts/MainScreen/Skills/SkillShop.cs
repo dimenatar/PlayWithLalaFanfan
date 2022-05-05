@@ -1,46 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SkillShop : MonoBehaviour
 {
     [SerializeField] private List<SkillUIElement> _elements;
-    [SerializeField] private Text _skillName;
-    [SerializeField] private Text _skillDescription;
+    [SerializeField] private TextMeshProUGUI _skillName;
+    [SerializeField] private TextMeshProUGUI _skillDescription;
+    [SerializeField] private SkillsController _skillsController;
+
     [SerializeField] private Button _submit;
+
     [SerializeField] private Color _bought;
     [SerializeField] private Color _buy;
+    [SerializeField] private Color _gray;
 
-    private UserData _userData;
     private bool _canBuy;
     private Skill _currrentSkill;
 
     #region const skill Descriptions
-    private const string COIN_DESCRIPTION_1 = "Получи";
+    private const string COIN_DESCRIPTION_1 = "Получи ";
     private const string COIN_DESCRIPTION_2 = " монет";
     private const string COIN_DESCRIPTION_3 = " за 1 собираемую монету!";
 
-    private const string SATIETY_GROW_DESCRIPTION_1 = "Утка наедается в";
+    private const string SATIETY_GROW_DESCRIPTION_1 = "Утка наедается в ";
     private const string SATIETY_GROW_DESCRIPTION_2 = " раз";
     private const string SATIETY_GROW_DESCRIPTION_3 = " быстрее";
 
-    private const string ENERGY_GROW_DESCRIPTION_1 = "Утка восстанавливает энергию в";
+    private const string ENERGY_GROW_DESCRIPTION_1 = "Энергия утки растет в ";
     private const string ENERGY_GROW_DESCRIPTION_2 = " раз";
     private const string ENERGY_GROW_DESCRIPTION_3 = " быстрее!";
 
-    private const string ENERGY_REDUCE_DESCRIPTION_1 = "Уменьшает траты энергии утки в";
-    private const string ENERGY_REDUCE_DESCRIPTION_2 = " раз!";
+    private const string ENERGY_REDUCE_DESCRIPTION_1 = "Уменьшает траты энергии утки в ";
+    private const string ENERGY_REDUCE_DESCRIPTION_2 = " раз";
 
-    private const string BORINGNESS_REDUCE_DESCRIPTION_1 = "Утка заскучает в";
+    private const string BORINGNESS_REDUCE_DESCRIPTION_1 = "Утка заскучает в ";
     private const string BORINGNESS_REDUCE_DESCRIPTION_2 = " раз";
-    private const string BORINGNESS_REDUCE_DESCRIPTION_3 = "меньше!";
+    private const string BORINGNESS_REDUCE_DESCRIPTION_3 = " медленее!";
+    #endregion
+
+    #region const button texts
+    private const string CAN_BUY = "Купить";
+    private const string BOUGHT = "Куплено";
+    private const string UNAVAILABLE = "Недоступно";
     #endregion
 
     private void Start()
     {
         _elements.ForEach(element => element.OnSkillClicked += DisplaySkill);
-        _userData = UserSaveManager.UserData;
         _submit.onClick.AddListener(Click);
     }
 
@@ -49,28 +58,35 @@ public class SkillShop : MonoBehaviour
         _currrentSkill = skill;
         _skillName.text = skill.Name;
         _skillDescription.text = GetDescription(skill);
-        if (_userData.Skills.HasUserSkill(skill))
+        print(skill);
+        if (_skillsController.Skills.HasUserSkill(skill))
         {
             _canBuy = false;
             _submit.GetComponent<Image>().color = _bought;
-            _submit.gameObject.transform.Find("Text").GetComponent<Text>().text = "Куплено";
+            _submit.gameObject.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = BOUGHT;
         }
-        else
+        else if (_skillsController.Skills.IsPreviousSkillBought(skill))
         {
             _canBuy = true;
             _submit.GetComponent<Image>().color = _buy;
-            _submit.gameObject.transform.Find("Text").GetComponent<Text>().text = "Купить";
+            _submit.gameObject.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = CAN_BUY;
+        }   
+        else
+        {
+            _canBuy = false;
+            _submit.GetComponent<Image>().color = _gray;
+            _submit.gameObject.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = UNAVAILABLE;
+
         }
-        //todo+    
     }
 
     private void Click()
     {
         if (_canBuy)
         {
-            _userData.Skills.AddSkill(_currrentSkill);
+            _skillsController.Skills.AddSkill(_currrentSkill);
             _submit.GetComponent<Image>().color = _bought;
-            _submit.gameObject.transform.Find("Text").GetComponent<Text>().text = "Куплено";
+            _submit.gameObject.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = UNAVAILABLE;
         }
     }
 

@@ -9,6 +9,7 @@ public class UserDataCollector : MoneyCollector
     [SerializeField] private UserEnergy _userEnergy;
     [SerializeField] private UserBoringness _userBoringness;
     [SerializeField] private Backpack _backpack;
+    [SerializeField] private SkillsController _skillsController;
     [SerializeField] Wallpapers _wallpapers;
     
     private void Awake()
@@ -27,8 +28,9 @@ public class UserDataCollector : MoneyCollector
     private void Start()
     {
         LoadIndicators();
-        LoadBackpack();
         LoadWallpapers();
+        LoadSkills();
+        LoadBackpack();
     }
 
     private void LoadBackpack()
@@ -48,6 +50,8 @@ public class UserDataCollector : MoneyCollector
     {
         _wallpapers.Initialise(_data.Backpack.CurrentWallpaper, _data.Backpack.Wallpapers);
     }
+
+    private void LoadSkills() => _skillsController.Initialise(_data.Skills);
 
     protected void LoadMoney()
     {
