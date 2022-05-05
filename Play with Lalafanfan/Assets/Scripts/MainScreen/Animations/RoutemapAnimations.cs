@@ -7,13 +7,6 @@ public class RoutemapAnimations : MonoBehaviour, IPhaseAnimations
 {
     [SerializeField] private BackgroundImageAnimation _backgroundImageAnimations;
 
-    public event Action OnAnimationCompleted;
-
-    private void Awake()
-    {
-        _backgroundImageAnimations.OnAnimationCompleted += () => OnAnimationCompleted?.Invoke();
-    }
-
     public void AnimateIn()
     {
         _backgroundImageAnimations.gameObject.SetActive(true);

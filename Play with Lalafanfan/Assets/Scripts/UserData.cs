@@ -22,6 +22,7 @@ public class UserData
 
     private UserBackpack _backpack;
     private PointsRecord _points;
+    private Skills _skills;
 
     public float FoodSatiety { get => _foodSatiety; private set => _foodSatiety = value; }
     public float Boringness { get => _boringness; private set => _boringness = value; }
@@ -34,11 +35,13 @@ public class UserData
     public int Money { get => _money; set => _money = value; }
     public UserBackpack Backpack { get => _backpack; set => _backpack = value; }
     public PointsRecord Points => _points;
+    public Skills Skills => _skills;
 
     public UserData()
     {
         Backpack = new UserBackpack();
         _points = new PointsRecord();
+        _skills = new Skills();
         OnUserDataInitialised?.Invoke(this);
     }
 

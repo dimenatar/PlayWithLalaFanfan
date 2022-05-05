@@ -9,7 +9,6 @@ public class UserBoringness : MonoBehaviour
 
     public event Action OnInitialise;
     public event BoringnessChanged OnBoringnessChanged;
-    public event BoringnessChanged OnMaxBoringnessChanged;
 
     private float _boringness;
     private float _maxBoringness;

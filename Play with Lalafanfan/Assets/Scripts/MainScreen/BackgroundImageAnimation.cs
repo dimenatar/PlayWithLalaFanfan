@@ -10,11 +10,6 @@ public class BackgroundImageAnimation : MonoBehaviour
     [SerializeField] private float _animationDurationIn = 0.5f;
     [SerializeField] private float _animationDurationOut = 0.5f;
 
-    public event Action OnAnimationCompleted;
-
-    private bool _isResized = false;
-    //private bool _isReadyToAnimate = true;
-
     public void AnimateIn()
     {
         AnimateToCenter();
@@ -62,7 +57,7 @@ public class BackgroundImageAnimation : MonoBehaviour
     private void OnAnimationIn()
     {
         //_isReadyToAnimate = true;
-        OnAnimationCompleted?.Invoke();
+        //OnAnimationCompleted?.Invoke();
     }
 
     private void OnAnimateOut(GameObject item)

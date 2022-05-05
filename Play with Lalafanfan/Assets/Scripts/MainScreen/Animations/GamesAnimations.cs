@@ -11,7 +11,6 @@ public class GamesAnimations : MonoBehaviour
     [SerializeField] private float _startPosition;
     [SerializeField] private RectTransform _element;
 
-    public event Action OnAnimationCompleted;
     private bool _isOpen;
 
     public void AnimateIn()

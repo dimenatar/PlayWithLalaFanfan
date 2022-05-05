@@ -12,8 +12,6 @@ public class AnimationController : MonoBehaviour
     [SerializeField] private BackpackAnimations _backpackAnimations;
     [SerializeField] private BathroomAnimations _bathroomAnimations;
 
-    public event Action OnAnimationCompleted;
-
     private bool _isReadyToAnimate = true;
     private IPhaseAnimations currentStage;
 
