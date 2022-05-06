@@ -26,7 +26,6 @@ public class UserBoringness : MonoBehaviour
 
     public void Initialise(float boringness, float maxBoringness)
     {
-        Debug.Log("initialise");
         _maxBoringness = maxBoringness;
         Boringness = boringness;
         OnInitialise?.Invoke();

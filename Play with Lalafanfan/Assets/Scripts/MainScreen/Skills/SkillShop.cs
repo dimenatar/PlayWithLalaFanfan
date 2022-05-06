@@ -65,7 +65,7 @@ public class SkillShop : MonoBehaviour
             _submit.GetComponent<Image>().color = _bought;
             _submit.gameObject.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = BOUGHT;
         }
-        else if (_skillsController.Skills.IsPreviousSkillBought(skill))
+        else if (_skillsController.Skills.IsPreviousSkillBought(skill) || skill.Order == 2)
         {
             _canBuy = true;
             _submit.GetComponent<Image>().color = _buy;
@@ -86,7 +86,7 @@ public class SkillShop : MonoBehaviour
         {
             _skillsController.Skills.AddSkill(_currrentSkill);
             _submit.GetComponent<Image>().color = _bought;
-            _submit.gameObject.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = UNAVAILABLE;
+            _submit.gameObject.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = BOUGHT;
         }
     }
 

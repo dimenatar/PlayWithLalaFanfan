@@ -39,7 +39,41 @@ public class Skills
             _userSkills.Remove(existingSkill);
         }
         _userSkills.Add(skill);
+        ApplyChanges(skill);
         OnSkillAdded?.Invoke(skill);
+    }
+
+    private void ApplyChanges(Skill skill)
+    {
+        switch (skill.SkillType)
+        {
+            case SkillType.Coins:
+                {
+                    CoinModifier = skill.Order;
+                    break;
+                }
+            case SkillType.Satiety:
+                {
+                    FoodModifier = skill.Order;
+                    break;
+                }
+            case SkillType.EnergyBoost:
+                {
+                    AddEnergyModifier = skill.Order;
+                    break;
+                }
+            case SkillType.EnergyReduce:
+                {
+                    ReduceEnergyModifier = skill.Order;
+                    break;
+                }
+            case SkillType.BoringnessReduce:
+                {
+                    BoringnessGrowModifier = skill.Order;
+                    break;
+                }
+        }
+
     }
 
     public bool IsPreviousSkillBought(Skill skill) => _userSkills.Any(s => s.Name.Equals(skill.Name) && skill.Order - 1 == s.Order);

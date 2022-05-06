@@ -17,8 +17,14 @@ public class SkillsView : MonoBehaviour
         _skillsController.OnInitialised += Initialise;
     }
 
+    private void Start()
+    {
+        Initialise();
+    }
+
     private void Initialise()
     {
+        Debug.Log("1");
         Skills skills = _skillsController.Skills;
         _coins.value = skills.CoinModifier;
         _satiety.value = skills.FoodModifier;
