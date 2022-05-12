@@ -10,25 +10,27 @@ public class UserDataCollector : MoneyCollector
     [SerializeField] private UserBoringness _userBoringness;
     [SerializeField] private Backpack _backpack;
     [SerializeField] private SkillsController _skillsController;
+    [SerializeField] private ExperienceManager _experienceManager;
     [SerializeField] Wallpapers _wallpapers;
-    
+    [SerializeField] private StarController _starController;
+    [SerializeField] private SkillsView _skillsView;
+
     private void Awake()
     {
-        //SceneManager.sceneLoaded += LoadMoney;
-        //SceneManager.sceneLoaded += LoadIndicators;
-        //SceneManager.sceneLoaded += LoadBackpack;
-        //SceneManager.sceneLoaded += LoadWallpapers;
         SceneManager.sceneUnloaded += SaveResources;
         Application.quitting += SaveResources;
 
-        LoadMoney();
-
+        
+        LoadUserData();
     }
 
     private void Start()
     {
+        LoadMoney();
         LoadIndicators();
         LoadWallpapers();
+        LoadExperience();
+        LoadStars();
         LoadSkills();
         LoadBackpack();
     }
@@ -53,19 +55,23 @@ public class UserDataCollector : MoneyCollector
 
     private void LoadSkills() => _skillsController.Initialise(_data.Skills);
 
-    protected void LoadMoney()
+    protected override void LoadUserData()
     {
         _data = UserSaveManager.LoadUserData(UserSaveManager.Path);
         if (_data == null)
         {
-            Debug.Log(_data);
+            Debug.Log("ANAL");
             _data = new UserData();
             UserSaveManager.SaveUserData(_data);
             UserSaveManager.RewriteUserData();
         }
         Debug.Log($"Data loaded: {_data}");
-        _money.SetMoneyAmount(_data.Money);
     }
+
+    //protected override void LoadMoney()
+    //{
+    //    _money.SetMoneyAmount(_data.Money);
+    //}
 
     protected override void SaveResources(Scene scene)
     {
@@ -74,14 +80,21 @@ public class UserDataCollector : MoneyCollector
 
     protected override void SaveResources()
     {
+        _skillsView.UnsubscribeSkills();
+
         _data.Money = _money.MoneyAmount;
         _data.Backpack = _backpack.Pack;
         _data.SetIndicators(_userSatiety.Satiety, _userEnergy.Energy, _userBoringness.Boringness);
         _data.SetMaxIndicators(_userSatiety.MaxFoodSatiety, _userEnergy.MaxEnergy, _userBoringness.MaxBoringness);
-        Debug.Log($"resources saved! Satiety:{_userSatiety.Satiety},Boringness: {_userBoringness.Boringness},Energy: {_userEnergy.Energy}");
+        Debug.Log($"resources saved! Satiety:{_userSatiety.Satiety},Boringness: {_userBoringness.Boringness},Energy: {_userEnergy.Energy} UserLevel: {_experienceManager.CurrentLevel.LevelNumber}  {_experienceManager.CurrentExperience}");
         _data.Backpack.UpdateCurrentWallpaper(_wallpapers.CurrentWallpaper);
         _data.Backpack.Wallpapers = _wallpapers.AvailableWallpapers;
+        _data.CollectExperience(_experienceManager.CurrentLevel, _experienceManager.CurrentExperience);
+        _data.CollectStars(_starController.StarCounter);
         UserSaveManager.SaveUserData(_data);
         UserSaveManager.RewriteUserData();
     }
+
+    private void LoadExperience() => _experienceManager.Initialise(_data.CurrentLevel, _data.Experience);
+    private void LoadStars() => _starController.Initialise(_data.StarCount);
 }

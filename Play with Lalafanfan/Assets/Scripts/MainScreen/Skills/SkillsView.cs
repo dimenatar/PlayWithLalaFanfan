@@ -12,6 +12,8 @@ public class SkillsView : MonoBehaviour
     [SerializeField] private Slider _energyReduce;
     [SerializeField] private Slider _boringnessReduce;
 
+    private Skills _skills;
+
     private void Awake()
     {
         _skillsController.OnInitialised += Initialise;
@@ -22,16 +24,20 @@ public class SkillsView : MonoBehaviour
         Initialise();
     }
 
+    public void UnsubscribeSkills()
+    {
+        _skills.ClearEvent();
+    }
+
     private void Initialise()
     {
-        Debug.Log("1");
-        Skills skills = _skillsController.Skills;
-        _coins.value = skills.CoinModifier;
-        _satiety.value = skills.FoodModifier;
-        _energyGrow.value = skills.AddEnergyModifier;
-        _energyReduce.value = skills.ReduceEnergyModifier;
-        _boringnessReduce.value = skills.BoringnessGrowModifier;
-        skills.OnSkillAdded += UpdateValue;
+        _skills = _skillsController.Skills;
+        _coins.value = _skills.CoinModifier;
+        _satiety.value = _skills.FoodModifier;
+        _energyGrow.value = _skills.AddEnergyModifier;
+        _energyReduce.value = _skills.ReduceEnergyModifier;
+        _boringnessReduce.value = _skills.BoringnessGrowModifier;
+        _skills.OnSkillAdded += UpdateValue;
     }
 
     private void UpdateValue(Skill skill)

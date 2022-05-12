@@ -11,15 +11,17 @@ public class JumpMoneyPointsCollector : PointsAndMoneyCollector
         //SceneManager.sceneLoaded += LoadMoney;
         //SceneManager.sceneLoaded += LoadPoints;
         Debug.Log("JUMP LOADED");
-        LoadMoney(new Scene(), LoadSceneMode.Single);
-        LoadPoints(new Scene(), LoadSceneMode.Single);
+
+        LoadUserData();
+
         SceneManager.sceneUnloaded += SaveResources;
         Application.quitting += SaveResources;
     }
 
-    private void Update()
+    private void Start()
     {
-
+        LoadMoney();
+        LoadPoints();
     }
 
     protected override void SaveResources()

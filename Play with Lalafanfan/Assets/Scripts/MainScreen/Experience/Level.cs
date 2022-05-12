@@ -10,4 +10,10 @@ public class Level
 
     public int LevelNumber => _levelNumber;
     public int ExperienceToLevelUp => _experienceToLevelUp;
+
+    public Level()
+    {
+        _levelNumber = 1;
+        _experienceToLevelUp = 10;
+    }
 }

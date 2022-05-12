@@ -14,19 +14,19 @@ public class ExperienceManager : MonoBehaviour
     public delegate void LevelChanged(Level level);
 
     public event CurrentExperienceChanged OnCurrentExperienceChanged;
-    public event LevelChanged OnLevelChanged;
+    public event LevelChanged OnLevelChanged; 
 
     public int CurrentExperience 
     { 
         get => _currentExperience;
-        set
+        private set
         {
-            _currentExperience = value;
             if (_currentLevel != null)
             {
-                if (_currentLevel.LevelNumber != 46)
+                if (!_levels.IsLastLevel(_currentLevel))
                 {
-                    //OnCurrentExperienceChanged?.Invoke(value, _levels.Levels[_currentLevel.LevelNumber].ExperienceToLevelUp);
+                    OnCurrentExperienceChanged?.Invoke(value);
+                    _currentExperience = value;
                 }
             }
         }
@@ -36,15 +36,32 @@ public class ExperienceManager : MonoBehaviour
     {
        
         get => _currentLevel;
-        set
+        private set
         {
             _currentLevel = value;
             OnLevelChanged?.Invoke(_currentLevel);
         }
     }
 
-    private void Start()
+    public void Initialise(Level level, int currentExperience)
     {
+        //Debug.Log(level.LevelNumber);
+        //Debug.Log(currentExperience);
+        CurrentLevel = level;
+        CurrentExperience = currentExperience;
+    }
 
+    public void AddExperience(int amount)
+    {
+        if (_levels.IsLastLevel(_currentLevel)) return;
+        if (CurrentExperience + amount < CurrentLevel.ExperienceToLevelUp)
+        {
+            CurrentExperience += amount;
+        }
+        else
+        {
+            CurrentExperience += amount - CurrentLevel.ExperienceToLevelUp;
+            CurrentLevel = _levels.GetNextLevel(CurrentLevel.LevelNumber);
+        }
     }
 }

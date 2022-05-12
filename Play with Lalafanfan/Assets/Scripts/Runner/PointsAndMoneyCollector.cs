@@ -13,24 +13,20 @@ public class PointsAndMoneyCollector : MoneyCollector
 
     private void Awake()
     {
-        //SceneManager.sceneLoaded += (s, e) => Debug.LogError("SCENE LOADED");
-        //SceneManager.sceneLoaded += LoadMoney;
-        //SceneManager.sceneLoaded += LoadPoints;
         SceneManager.sceneUnloaded += SaveResources;
         Application.quitting += SaveResources;
 
-        LoadMoney(new Scene(), LoadSceneMode.Single);
-        LoadPoints(new Scene(), LoadSceneMode.Single);
+        LoadUserData();
     }
 
-    private void Update()
+    private void Start()
     {
-        Debug.LogWarning($"PointsAndMoneyCollector data points: {_data.Points}");
+        LoadMoney();
+        LoadPoints();
     }
 
-    protected void LoadPoints(Scene scene, LoadSceneMode mode)
+    protected void LoadPoints()
     {
-        Debug.LogWarning($"PointsAndMoneyCollector data points: {_data.Points}");
         _pointsRecord = _data.Points;
     }
 

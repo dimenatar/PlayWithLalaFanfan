@@ -7,7 +7,7 @@ using UnityEngine;
 public class UserData
 {
     public delegate void UserDataInitialised(UserData userData);
-    
+
     public event UserDataInitialised OnUserDataInitialised;
 
     private int _money;
@@ -20,9 +20,13 @@ public class UserData
     private float _maxEnergy = 10;
     private float _maxFoodSatiety = 10;
 
+    private int _experience;
+    private int _starCount;
+
     private UserBackpack _backpack;
     private PointsRecord _points;
     private Skills _skills;
+    private Level _level;
 
     public float FoodSatiety { get => _foodSatiety; private set => _foodSatiety = value; }
     public float Boringness { get => _boringness; private set => _boringness = value; }
@@ -32,16 +36,21 @@ public class UserData
     public float MaxBoringness => _maxBoringness;
     public float MaxEnergy => _maxEnergy;
 
+    public int StarCount { get => _starCount; private set => _starCount = value; }
+    public int Experience { get => _experience; private set => _experience = value; }
     public int Money { get => _money; set => _money = value; }
     public UserBackpack Backpack { get => _backpack; set => _backpack = value; }
     public PointsRecord Points => _points;
     public Skills Skills => _skills;
+    public Level CurrentLevel { get => _level; private set => _level = value; }
+
 
     public UserData()
     {
         Backpack = new UserBackpack();
         _points = new PointsRecord();
         _skills = new Skills();
+        CurrentLevel = new Level();
         OnUserDataInitialised?.Invoke(this);
     }
 
@@ -64,8 +73,11 @@ public class UserData
         Money = money;
     }
 
-    public void SetMaxFoodSatiety(float maxFoodSatiety)
+    public void CollectExperience(Level level, int experience)
     {
-        _maxFoodSatiety = maxFoodSatiety;
+        CurrentLevel = level;
+        Experience = experience;
     }
+
+    public void CollectStars(int amount) => _starCount = amount;
 }

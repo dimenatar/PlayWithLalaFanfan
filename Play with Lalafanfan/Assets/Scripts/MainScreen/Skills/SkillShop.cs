@@ -7,11 +7,12 @@ using UnityEngine.UI;
 public class SkillShop : MonoBehaviour
 {
     [SerializeField] private List<SkillUIElement> _elements;
+
     [SerializeField] private TextMeshProUGUI _skillName;
     [SerializeField] private TextMeshProUGUI _skillDescription;
-    [SerializeField] private SkillsController _skillsController;
-
     [SerializeField] private Button _submit;
+
+    [SerializeField] private SkillsController _skillsController;
 
     [SerializeField] private Color _bought;
     [SerializeField] private Color _buy;

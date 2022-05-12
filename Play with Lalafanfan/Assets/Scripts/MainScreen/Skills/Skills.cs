@@ -31,6 +31,11 @@ public class Skills
 
     public bool HasUserSkill(Skill skill) => _userSkills.Any(s => s.Name.Equals(skill.Name) && s.Order == skill.Order);
 
+    public void ClearEvent()
+    {
+        OnSkillAdded = null;
+    }
+
     public void AddSkill(Skill skill)
     {
         var existingSkill = _userSkills.Find(s => s.SkillType == skill.SkillType);

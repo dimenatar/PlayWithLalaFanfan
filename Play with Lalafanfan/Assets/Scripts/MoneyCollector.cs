@@ -10,9 +10,8 @@ public class MoneyCollector : MonoBehaviour
 
     protected UserData _data = null;
 
-    protected virtual void LoadMoney(Scene scene, LoadSceneMode mode)
+    protected virtual void LoadUserData()
     {
-        //_data = UserSaveManager.LoadUserData(UserSaveManager.Path);
         _data = UserSaveManager.UserData;
         if (_data == null)
         {
@@ -23,14 +22,14 @@ public class MoneyCollector : MonoBehaviour
         }
         Debug.Log($"Data loaded: {_data} {_data.Points}");
         Debug.LogWarning(_data.Points);
-        _money.SetMoneyAmount(_data.Money);
     }
+
+    protected virtual void LoadMoney() => _money.SetMoneyAmount(_data.Money);
 
     protected virtual void SaveResources()
     {
         _data.Money = _money.MoneyAmount;
         UserSaveManager.SaveUserData(_data);
-        //UserSaveManager.RewriteUserData(UserSaveManager.Path, _data);
     }
 
     protected virtual void SaveResources(Scene scene)

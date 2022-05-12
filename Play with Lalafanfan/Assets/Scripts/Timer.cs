@@ -7,18 +7,25 @@ public class Timer : MonoBehaviour
 
     private float _delay;
     private float _time;
-    private bool _isInitialised;
+    private bool _isStarted;
+
+    public bool IsStarted => _isStarted;
 
     public void Initialise(float delay) 
     {
         _time = 0;
         _delay = delay;
-        _isInitialised = true;
     }
 
-    private void FixedUpdate()
+    public void StartTimer()
     {
-        if (_isInitialised)
+        _time = 0;
+        _isStarted = true;
+    }
+
+    private void Update()
+    {
+        if (_isStarted)
         {
             if (_time >= _delay)
             {
@@ -34,7 +41,7 @@ public class Timer : MonoBehaviour
 
     public void StopTimer()
     {
-        _isInitialised = false;
+        _isStarted = false;
         _time = 0;
     }
 

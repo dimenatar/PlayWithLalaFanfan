@@ -33,6 +33,7 @@ public static class UserSaveManager
     public static void RewriteUserData()
     {
         FileStream stream = new FileStream(Path, FileMode.OpenOrCreate);
+        Debug.Log(UserData + " pizdec");
         new BinaryFormatter().Serialize(stream, UserData);
         stream.Close();
     }

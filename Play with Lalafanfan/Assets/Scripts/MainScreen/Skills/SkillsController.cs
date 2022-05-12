@@ -19,7 +19,6 @@ public class SkillsController : MonoBehaviour
 
     public void Initialise(Skills skills)
     {
-        Debug.Log("SKill controller init");
         _skills = skills;
         OnInitialised?.Invoke();
     }

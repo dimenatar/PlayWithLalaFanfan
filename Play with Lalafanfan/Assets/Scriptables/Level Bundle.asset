@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44650ca50df9e4b4fbc142acfa4e6ece, type: 3}
+  m_Name: Level Bundle
+  m_EditorClassIdentifier: 
+  _levels:
+  - _levelNumber: 1
+    _experienceToLevelUp: 10
+  - _levelNumber: 2
+    _experienceToLevelUp: 20
+  - _levelNumber: 3
+    _experienceToLevelUp: 30
+  - _levelNumber: 4
+    _experienceToLevelUp: 40
+  - _levelNumber: 5
+    _experienceToLevelUp: 50
+  - _levelNumber: 6
+    _experienceToLevelUp: 70
+  - _levelNumber: 7
+    _experienceToLevelUp: 90
+  - _levelNumber: 8
+    _experienceToLevelUp: 110
+  - _levelNumber: 9
+    _experienceToLevelUp: 150
+  - _levelNumber: 10
+    _experienceToLevelUp: 190
+  - _levelNumber: 11
+    _experienceToLevelUp: 230
+  - _levelNumber: 12
+    _experienceToLevelUp: 300
+  - _levelNumber: 13
+    _experienceToLevelUp: 350
+  - _levelNumber: 14
+    _experienceToLevelUp: 400
+  - _levelNumber: 15
+    _experienceToLevelUp: 450
+  - _levelNumber: 16
+    _experienceToLevelUp: 500
+  - _levelNumber: 17
+    _experienceToLevelUp: 550
+  - _levelNumber: 18
+    _experienceToLevelUp: 600
+  - _levelNumber: 19
+    _experienceToLevelUp: 650
+  - _levelNumber: 20
+    _experienceToLevelUp: 700
+  - _levelNumber: 21
+    _experienceToLevelUp: 800
+  - _levelNumber: 22
+    _experienceToLevelUp: 900
+  - _levelNumber: 23
+    _experienceToLevelUp: 1000
+  - _levelNumber: 24
+    _experienceToLevelUp: 1200
+  - _levelNumber: 25
+    _experienceToLevelUp: 1400
+  - _levelNumber: 26
+    _experienceToLevelUp: 1600
+  - _levelNumber: 27
+    _experienceToLevelUp: 1800
+  - _levelNumber: 28
+    _experienceToLevelUp: 2000
+  - _levelNumber: 29
+    _experienceToLevelUp: 2300
+  - _levelNumber: 30
+    _experienceToLevelUp: 2600
+  - _levelNumber: 31
+    _experienceToLevelUp: 3000
+  - _levelNumber: 32
+    _experienceToLevelUp: 3400
+  - _levelNumber: 33
+    _experienceToLevelUp: 3800
+  - _levelNumber: 34
+    _experienceToLevelUp: 4200
+  - _levelNumber: 35
+    _experienceToLevelUp: 4600
+  - _levelNumber: 36
+    _experienceToLevelUp: 5000
+  - _levelNumber: 37
+    _experienceToLevelUp: 5000
+  - _levelNumber: 38
+    _experienceToLevelUp: 5500
+  - _levelNumber: 39
+    _experienceToLevelUp: 6000
+  - _levelNumber: 40
+    _experienceToLevelUp: 6500
+  - _levelNumber: 41
+    _experienceToLevelUp: 7000
+  - _levelNumber: 42
+    _experienceToLevelUp: 7700
+  - _levelNumber: 43
+    _experienceToLevelUp: 8400
+  - _levelNumber: 44
+    _experienceToLevelUp: 9100
+  - _levelNumber: 45
+    _experienceToLevelUp: 10000
+  - _levelNumber: 46
+    _experienceToLevelUp: 11000
