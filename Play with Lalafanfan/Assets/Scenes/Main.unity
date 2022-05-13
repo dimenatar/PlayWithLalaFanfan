@@ -2995,6 +2995,7 @@ MonoBehaviour:
   _experienceManager: {fileID: 240508257}
   _wallpapers: {fileID: 240508246}
   _starController: {fileID: 240508259}
+  _skillsView: {fileID: 240508256}
 --- !u!114 &240508235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3420,6 +3421,7 @@ MonoBehaviour:
   _skillDescription: {fileID: 1777084855}
   _submit: {fileID: 1631203585}
   _skillsController: {fileID: 240508254}
+  _starController: {fileID: 240508259}
   _bought: {r: 0.4190993, g: 0.8018868, b: 0.6079307, a: 1}
   _buy: {r: 0.7697738, g: 0.7830189, b: 0.40923816, a: 1}
   _gray: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
@@ -3480,6 +3482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c162b97029d66459695d81336c8378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _experienceManager: {fileID: 240508257}
 --- !u!114 &240508260
 MonoBehaviour:
   m_ObjectHideFlags: 0

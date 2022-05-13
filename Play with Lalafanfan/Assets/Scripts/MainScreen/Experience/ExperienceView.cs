@@ -62,25 +62,15 @@ public class ExperienceView : MonoBehaviour
         {
             _timer.StartTimer();
         }
-        //if (_isReadyToFill)
-        //{
-        //    _isSavedCurrentExp = false;
-        //    _toNextLevel.DoFillCircle(currentExperience / requirableExperience, 0.5f);
-        //}
-        //else
-        //{
-        //    if (!_isSavedCurrentExp)
-        //    {
-        //        _saveCurrentExperience = _toNextLevel.fillAmount;
-        //    }
-        //    _saveExperienceTo = currentExperience;
-        //}
     }
 
     private void ResetCircle(Level level)
     {
         _currentExperience.DOKill();
-        UpdateExperience(_experienceManager.CurrentExperience);
+        //UpdateExperience(_experienceManager.CurrentExperience);
+        _timer.StopTimer();
+        _instantaneousExperience.fillAmount = _experienceManager.CurrentExperience / _experienceManager.CurrentLevel.ExperienceToLevelUp;
+        _currentExperience.DoFillCircle(_instantaneousExperience.fillAmount, 0.5f);
     }
 
     private void AnimateBackground(Level level)

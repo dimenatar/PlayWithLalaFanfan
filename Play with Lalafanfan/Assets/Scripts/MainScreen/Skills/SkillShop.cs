@@ -13,6 +13,7 @@ public class SkillShop : MonoBehaviour
     [SerializeField] private Button _submit;
 
     [SerializeField] private SkillsController _skillsController;
+    [SerializeField] private StarController _starController;
 
     [SerializeField] private Color _bought;
     [SerializeField] private Color _buy;
@@ -68,8 +69,17 @@ public class SkillShop : MonoBehaviour
         }
         else if (_skillsController.Skills.IsPreviousSkillBought(skill) || skill.Order == 2)
         {
-            _canBuy = true;
-            _submit.GetComponent<Image>().color = _buy;
+            
+            if (_starController.StarCounter >= skill.Price)
+            {
+                _submit.GetComponent<Image>().color = _buy;
+                _canBuy = true;
+            }
+            else
+            {
+                _submit.GetComponent<Image>().color = _gray;
+                _canBuy = false;
+            }
             _submit.gameObject.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = CAN_BUY;
         }   
         else
@@ -88,6 +98,7 @@ public class SkillShop : MonoBehaviour
             _skillsController.Skills.AddSkill(_currrentSkill);
             _submit.GetComponent<Image>().color = _bought;
             _submit.gameObject.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = BOUGHT;
+            _starController.SpendStars(_currrentSkill.Price);
         }
     }
 
