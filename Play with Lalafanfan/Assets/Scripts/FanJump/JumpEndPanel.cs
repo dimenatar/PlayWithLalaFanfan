@@ -1,5 +1,7 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,10 +13,10 @@ public class JumpEndPanel : MonoBehaviour
     [SerializeField] private DuckJump _duckJump;
     [SerializeField] private UserMoney _userMoney;
     [SerializeField] private GameObject _panel;
-    [SerializeField] private Text _money;
-    [SerializeField] private Text _currentPoints;
-    [SerializeField] private Text _maxPoints;
-    [SerializeField] private Text _newRecord;
+    [SerializeField] private TextMeshProUGUI _money;
+    [SerializeField] private TextMeshProUGUI _currentPoints;
+    [SerializeField] private TextMeshProUGUI _maxPoints;
+    [SerializeField] private TextMeshProUGUI _newRecord;
 
     private void Awake()
     {
@@ -23,16 +25,13 @@ public class JumpEndPanel : MonoBehaviour
 
     public void ShowPanel()
     {
-        Invoke(nameof(EnablePanel), 0);
+        EnablePanel();
+        _panel.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, 0.4f).SetUpdate(true);
     }
 
     private void EnablePanel()
     {
         _money.text = _userMoney.MoneyAmount.ToString();
-        Debug.Log(_points.Score);
-        Debug.Log(_scoreAndMoneyCollector);
-        Debug.Log(_scoreAndMoneyCollector.Points);
-        Debug.Log(_scoreAndMoneyCollector.Points.HighestJumpPoints);
         if (_points.Score > _scoreAndMoneyCollector.Points.HighestJumpPoints) // если побил рекорд
         {
             _maxPoints.transform.parent.gameObject.SetActive(false);

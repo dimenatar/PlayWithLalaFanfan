@@ -26,6 +26,7 @@ public class UserDataCollector : MoneyCollector
 
     private void Start()
     {
+        print("start");
         LoadMoney();
         LoadIndicators();
         LoadWallpapers();
@@ -57,6 +58,7 @@ public class UserDataCollector : MoneyCollector
 
     protected override void LoadUserData()
     {
+        _data = UserSaveManager.UserData;
         _data = UserSaveManager.LoadUserData(UserSaveManager.Path);
         if (_data == null)
         {
@@ -97,4 +99,11 @@ public class UserDataCollector : MoneyCollector
 
     private void LoadExperience() => _experienceManager.Initialise(_data.CurrentLevel, _data.Experience);
     private void LoadStars() => _starController.Initialise(_data.StarCount);
+
+    private void UpdateValues(Scene scene, LoadSceneMode mode)
+    {
+        //LoadMoney();
+        //LoadExperience();
+        //LoadStars();
+    }
 }

@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class RunnerEndPanel : MonoBehaviour
 {
@@ -11,10 +10,10 @@ public class RunnerEndPanel : MonoBehaviour
     [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private UserMoney _userMoney;
     [SerializeField] private GameObject _panel;
-    [SerializeField] private Text _money;
-    [SerializeField] private Text _currentPoints;
-    [SerializeField] private Text _maxPoints;
-    [SerializeField] private Text _newRecord;
+    [SerializeField] private TextMeshProUGUI _money;
+    [SerializeField] private TextMeshProUGUI _currentPoints;
+    [SerializeField] private TextMeshProUGUI _maxPoints;
+    [SerializeField] private TextMeshProUGUI _newRecord;
 
     private void Awake()
     {
@@ -24,7 +23,8 @@ public class RunnerEndPanel : MonoBehaviour
 
     public void ShowPanel()
     {
-        Invoke(nameof(EnablePanel), 0.5f);
+        EnablePanel();
+        _panel.GetComponent<RectTransform>().DOAnchorPos(Vector2.zero, 0.4f).SetUpdate(true);
     }
 
     private void EnablePanel()
