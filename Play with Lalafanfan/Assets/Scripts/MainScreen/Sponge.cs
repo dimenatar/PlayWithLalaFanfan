@@ -83,7 +83,7 @@ public class Sponge : MonoBehaviour
     private void ReturnSpongeToDefaultPosition()
     {
         _isMovingSponge = false;
-        transform.position = _defaultPosition;
+        GetComponent<RectTransform>().anchoredPosition = _defaultPosition;
     }
 
     private bool IsHoweringObject(GameObject gameObject)
