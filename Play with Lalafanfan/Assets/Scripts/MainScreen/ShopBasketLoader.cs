@@ -6,6 +6,7 @@ using UnityEngine;
 public class ShopBasketLoader : MonoBehaviour
 {
     [SerializeField] private GameObject _basket;
+    [SerializeField] private Transform _storage;
     [SerializeField] private int _maxCapacity;
     [SerializeField] private Transform _leftPoint;
     [SerializeField] private Transform _rightPoint;
@@ -28,7 +29,7 @@ public class ShopBasketLoader : MonoBehaviour
     public void AddItemToBasket(FoodData data, Vector3 startPosition)
     {
         GameObject item = Instantiate(_itemPrefab, startPosition, Quaternion.identity);
-        item.transform.SetParent(_basket.transform);
+        item.transform.SetParent(_storage);
         item.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(data.IconResourceName);
         item.AddComponent<ShopBasketItem>();
         item.GetComponent<ShopBasketItem>().Initialise(GetItemPositionInBasket(), _itemFlyHeight, _itemAmount < _maxCapacity);
@@ -37,7 +38,7 @@ public class ShopBasketLoader : MonoBehaviour
 
     public void ClearBasket()
     {
-        for (int i = 0; i < _basket.transform.childCount; i++)
+        for (int i = 0; i < _storage.childCount; i++)
         {
             Destroy(_basket.transform.GetChild(i).gameObject);
         }
