@@ -10,6 +10,7 @@ public class SkillShop : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _skillName;
     [SerializeField] private TextMeshProUGUI _skillDescription;
+    [SerializeField] private TextMeshProUGUI _price;
     [SerializeField] private Button _submit;
 
     [SerializeField] private SkillsController _skillsController;
@@ -60,7 +61,7 @@ public class SkillShop : MonoBehaviour
         _currrentSkill = skill;
         _skillName.text = skill.Name;
         _skillDescription.text = GetDescription(skill);
-        print(skill);
+        _price.text = skill.Price.ToString();
         if (_skillsController.Skills.HasUserSkill(skill))
         {
             _canBuy = false;
@@ -69,7 +70,6 @@ public class SkillShop : MonoBehaviour
         }
         else if (_skillsController.Skills.IsPreviousSkillBought(skill) || skill.Order == 2)
         {
-            
             if (_starController.StarCounter >= skill.Price)
             {
                 _submit.GetComponent<Image>().color = _buy;
